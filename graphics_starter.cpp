@@ -95,6 +95,7 @@ void displayFacts() {
     vector<Shape*> shapes;
     Rectangle_shape *factBackground = new Rectangle_shape({250,140}, {0.7, 0.0, 0.5}, {420, 240});
     Circle *funFact = new Circle({450,320}, {0.5, 0.5, 0.5}, 175);
+
     shapes.push_back(factBackground);
     shapes.push_back(funFact);
     for (int i=0; i < shapes.size(); i++) {
@@ -171,18 +172,13 @@ void displayFacts() {
     // DISPLAY ANIMAL IMAGE
     glEnable(GL_TEXTURE_2D);
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
     // create quad for image
-    glBegin (GL_QUADS);
-    glTexCoord2d(0.0,0.0); glVertex2d(500,200);
-    glTexCoord2d(1.0,0.0); glVertex2d(700,200);
-    glTexCoord2d(1.0,1.0); glVertex2d(700,50);
-    glTexCoord2d(0.0,1.0); glVertex2d(500,50);
-    glEnd();
-
+    Rectangle_shape *animalImage = new Rectangle_shape({600,125}, {1.0,1.0,1.0}, {200, 150});
+    animalImage->draw();
     // bind texture to the quad and then disable it for future draws
     glBindTexture( GL_TEXTURE_2D, textures[animalNum-1] );
     glDisable(GL_TEXTURE_2D);
+
 }
 
 void displayFinal() {
