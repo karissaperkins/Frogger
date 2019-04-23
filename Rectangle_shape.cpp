@@ -70,10 +70,10 @@ void Rectangle_shape::set_width(double width){
 void Rectangle_shape::draw() const {
     glColor3f(fill.red, fill.green, fill.blue);
     glBegin(GL_QUADS);
-    glVertex2i(get_center_x() - ((int)get_length() / 2), get_center_y() - ((int)get_width() / 2));
-    glVertex2i(get_center_x() - ((int)get_length() / 2), get_center_y() + ((int)get_width() / 2));
-    glVertex2i(get_center_x() + ((int)get_length() / 2), get_center_y() + ((int)get_width() / 2));
-    glVertex2i(get_center_x() + ((int)get_length() / 2), get_center_y() - ((int)get_width() / 2));
+    glTexCoord2d(0.0,1.0); glVertex2i(get_center_x() - ((int)get_length() / 2), get_center_y() - ((int)get_width() / 2));
+    glTexCoord2d(0.0,0.0); glVertex2i(get_center_x() - ((int)get_length() / 2), get_center_y() + ((int)get_width() / 2));
+    glTexCoord2d(1.0,0.0); glVertex2i(get_center_x() + ((int)get_length() / 2), get_center_y() + ((int)get_width() / 2));
+    glTexCoord2d(1.0,1.0); glVertex2i(get_center_x() + ((int)get_length() / 2), get_center_y() - ((int)get_width() / 2));
     glEnd();
 }
 double Rectangle_shape::calculate_area() const{
