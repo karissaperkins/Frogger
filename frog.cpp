@@ -26,6 +26,9 @@ void Frog::draw() {
     glVertex2f(300 + x, 100 + y);
     glVertex2f(300 + x, 200 + y);
     glVertex2f(200 + x, 200 + y);
+    glEnd();
+
+    glFlush();
 
 }
 
