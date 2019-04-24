@@ -2,7 +2,7 @@
 #include "Button.h"
 #include "Rectangle_shape.h"
 #include "Circle.h"
-#include "Shapes.h"
+#include "shapes.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -14,27 +14,15 @@
 #include <memory>
 using namespace std;
 
-// ANIMAL STRUCT
-struct Animal {
-    string name, size, weight;
-    string habitat, lifespan, funFact;
-};
-// FUNCTIONS
-void getAnimals();
-// VARIABLES
-vector<Animal> animals;
-
-
 
 // GLOBAL VARIABLES
 GLdouble width, height;
 int wd;
-Quad rect({0.7, 0.5, 1.0}, {350, 200}, 100, 40);
-Button startButton(rect, "Begin");
+Quad rect({0.7, 0.5, 1.0}, {260, 200}, 100, 40);
+Button startButton(rect, "Start Game");
 Button againButton(rect, "Play Again");
-enum screen {start, facts, final};
+enum screen {start, game, final};
 screen mode;
-int animalNum = 1;
 vector<GLuint> textures;
 vector<const char*> filenames = {"elephant.jpg", "alligator.jpg", "giraffe.jpg", "hedgehog.jpg", "rhino.jpg",
                                  "camel.jpg", "sloth.jpg", "orca.jpg", "ostricth.jpg", "frog.jpg"};
@@ -53,140 +41,81 @@ void loadImages() {
 }
 
 void clickToStart() {
-    mode = facts;
+    mode = game;
 }
 
 void clickToPlayAgain() {
-    animalNum = 1;
-    mode = start;
+    mode = game;
 }
 
 void displayString(string message, int x, int y) {
     glRasterPos2i(x, y);
     for (char &letter : message) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, letter);
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, letter);
     }
 }
 
 void init() {
-    width = 800;
-    height = 500;
+    width = 510;
+    height = 570;
     srand(time(0));
     mode = start;
-    getAnimals();
 }
 
 /* Initialize OpenGL Graphics */
 void initGL() {
     // Set "clearing" or background color
-    glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 
 void displayStart() {
     glColor3f(0.7, 0.0, 0.5);
-    string welcome = "Welcome to Animal Facts!";
-    displayString(welcome, 250, 150);
+    string welcome = "Frogger";
+    displayString(welcome, 220, 150);
     startButton.draw();
 }
 
 void displayFacts() {
     // DISPLAY SHAPES using polymorphism with draw function
     vector<Shape*> shapes;
-    Rectangle_shape *factBackground = new Rectangle_shape({250,140}, {0.7, 0.0, 0.5}, {420, 240});
-    Circle *funFact = new Circle({450,320}, {0.5, 0.5, 0.5}, 175);
+    Rectangle_shape *startRec = new Rectangle_shape({255,545}, {0.7, 0.0, 0.5}, {520, 50});
+    Rectangle_shape *logA = new Rectangle_shape({340,75}, {0.4, 0.2, 0.0}, {100, 30});
+    Circle *lilypadA = new Circle({25,115}, {0.0, 0.8, 0.0}, 15);
+    Rectangle_shape *logB = new Rectangle_shape({240,155}, {0.4, 0.2, 0.0}, {100, 30});
+    Rectangle_shape *logC = new Rectangle_shape({340,195}, {0.4, 0.2, 0.0}, {100, 30});
+    Circle *lilypadB = new Circle({450,235}, {0.0, 0.8, 0.0}, 15);
+    Rectangle_shape *middleRec = new Rectangle_shape({255,285}, {0.7, 0.0, 0.5}, {520, 50});
+    Rectangle_shape *endRec = new Rectangle_shape({255,25}, {0.7, 0.0, 0.5}, {520, 50});
 
-    shapes.push_back(factBackground);
-    shapes.push_back(funFact);
+    shapes.push_back(startRec);
+    shapes.push_back(logA);
+    shapes.push_back(lilypadA);
+    shapes.push_back(logB);
+    shapes.push_back(logC);
+    shapes.push_back(lilypadB);
+    shapes.push_back(middleRec);
+    shapes.push_back(endRec);
     for (int i=0; i < shapes.size(); i++) {
         shapes[i]->draw();
     }
-
-    // DISPLAY VITAL STATS IN RECTANGLE
-    glColor3f(0.9, 0.9, 0.9);
-    displayString(animals[animalNum].name, 50, 60);
-    string sizeString = "Size: " + animals[animalNum].size;
-    displayString(sizeString, 75, 100);
-    string weightString = "Weight: " + animals[animalNum].weight;
-    displayString(weightString, 75, 140);
-    string habitatString = "Habitat: " + animals[animalNum].habitat;
-    displayString(habitatString, 75, 180);
-    string lifeString = "Lifespan: " + animals[animalNum].lifespan;
-    displayString(lifeString, 75, 220);
-
-    // DISPLAY FUN FACT IN CIRCLE
-    glColor3f(0.2, 0.2, 0.4);
-    displayString("Did you know?", 320, 270);
-
-    // break fun fact string into words
-    string word = "";
-    vector<string> funFactWords;
-    istringstream iss(animals[animalNum].funFact);
-    while (iss >> word) {
-        funFactWords.push_back(word);
-    }
-
-    // break fact into lines
-    int factChar = 0;
-    string funFactLine1 = "", funFactLine2 = "";
-    string funFactLine3 = "", funFactLine4 = "";
-    for (int i = 0; i < funFactWords.size(); ++i) {
-        if (factChar <= 40) {
-            funFactLine1 += funFactWords[i] + " ";
-            factChar += funFactWords.size() + 1;
-        } else if (factChar <= 80) {
-            funFactLine2 += funFactWords[i] + " ";
-            factChar += funFactWords.size() + 1;
-        } else if (factChar <= 140) {
-            funFactLine3 += funFactWords[i] + " ";
-            factChar += funFactWords.size() + 1;
-        } else if (factChar <= 200) {
-            funFactLine4 += funFactWords[i] + " ";
-            factChar += funFactWords.size() + 1;
-        } else {
-            funFactLine1 = "Fact too big to display";
-            funFactLine2 = "";
-            funFactLine3 = "";
-            funFactLine4 = "";
-        }
-    }
-
-    // display each line of the fun fact
-    displayString(funFactLine1, 320, 300);
-    displayString(funFactLine2, 320, 330);
-    displayString(funFactLine3, 320, 360);
-    displayString(funFactLine4, 320, 390);
-
-    // DISPLAY BACK/NEXT
-    if (animalNum != 1) {
-        displayString("< Back", 50, 450);
-    }
-    if (animalNum != 10) {
-        displayString("Next >", 150, 450);
-    }
-    else {
-        displayString("End >", 150, 450);
-    }
-    glColor3f(0.2, 0.8, 0.9);
 
     // DISPLAY ANIMAL IMAGE
     glEnable(GL_TEXTURE_2D);
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     // create quad for image
-    Rectangle_shape *animalImage = new Rectangle_shape({600,125}, {1.0,1.0,1.0}, {200, 150});
-    animalImage->draw();
+    //Rectangle_shape *animalImage = new Rectangle_shape({600,125}, {1.0,1.0,1.0}, {200, 150});
+    //animalImage->draw();
     // bind texture to the quad and then disable it for future draws
-    glBindTexture( GL_TEXTURE_2D, textures[animalNum-1] );
+    //glBindTexture( GL_TEXTURE_2D, textures[animalNum-1] );
     glDisable(GL_TEXTURE_2D);
 
 }
 
 void displayFinal() {
     glColor3f(0.7, 0.0, 0.5);
-    string thanks = "Thank you!";
-    displayString(thanks, 300, 150);
-    string sources = "Facts from nationalgeographic.com and thedodo.com";
-    displayString(sources, 50, 450);
+    string gameEnd = "Game Over";
+    displayString(gameEnd, 205, 150);
     againButton.draw();
 }
 
@@ -213,7 +142,7 @@ void display() {
         case start:
             displayStart();
             break;
-        case facts:
+        case game:
             displayFacts();
             break;
         case final:
@@ -232,12 +161,10 @@ void kbd(unsigned char key, int x, int y)
         glutDestroyWindow(wd);
         exit(0);
     }
-//    //'s'
-//    if (key == 's'){
-//        if (mode == start) {
-//            mode = play;
-//        }
-//    }
+    //'q'
+    if (key == 'q'){
+        mode = final;
+    }
 
     glutPostRedisplay();
 }
@@ -247,17 +174,8 @@ void kbdS(int key, int x, int y) {
         case GLUT_KEY_DOWN:
             break;
         case GLUT_KEY_LEFT:
-            if (mode == facts && animalNum >= 2) {
-                animalNum -=1;
-            }
             break;
         case GLUT_KEY_RIGHT:
-            if (mode == facts && animalNum < 10) {
-                animalNum +=1;
-            }
-            else if (mode == facts && animalNum == 10) {
-                mode = final;
-            }
             break;
         case GLUT_KEY_UP:
             break;
@@ -334,7 +252,7 @@ int main(int argc, char** argv) {
     glutInitWindowSize((int)width, (int)height);
     glutInitWindowPosition(100, 200); // Position the window's initial top-left corner
     /* create the window and store the handle to it */
-    wd = glutCreateWindow("Animal Facts!" /* title */ );
+    wd = glutCreateWindow("Frogger" /* title */ );
 
     // Register callback handler for window re-paint event
     glutDisplayFunc(display);
@@ -364,27 +282,4 @@ int main(int argc, char** argv) {
     // Enter the event-processing loop
     glutMainLoop();
     return 0;
-}
-
-void getAnimals() {
-    ifstream f_in;
-    f_in.open("animalStats.csv");
-
-    if (!f_in) {
-        cout << "Could not open file " << endl;
-    }
-
-    while (f_in && f_in.peek() != EOF) {
-        Animal a;
-        getline(f_in, a.name, ',');
-        getline(f_in, a.size, ',');
-        getline(f_in, a.weight, ',');
-        getline(f_in, a.habitat, ',');
-        getline(f_in, a.lifespan, ',');
-        getline(f_in, a.funFact, ',');
-
-        animals.push_back(a);
-    }
-
-    f_in.close();
 }
