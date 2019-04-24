@@ -23,6 +23,7 @@ Button startButton(rect, "Start Game");
 Button againButton(rect, "Play Again");
 enum screen {start, game, final};
 screen mode;
+vector<Shape*> shapes;
 vector<GLuint> textures;
 vector<const char*> filenames = {"elephant.jpg", "alligator.jpg", "giraffe.jpg", "hedgehog.jpg", "rhino.jpg",
                                  "camel.jpg", "sloth.jpg", "orca.jpg", "ostricth.jpg", "frog.jpg"};
@@ -38,6 +39,81 @@ void loadImages() {
     }
     cout << "images loaded" << endl;
 
+}
+
+void startGame() {
+    mode = game;
+    shapes.clear();
+
+    Rectangle_shape *medLogA = new Rectangle_shape({0,75}, {0.4, 0.2, 0.0}, {150, 30});
+    Rectangle_shape *medLogB = new Rectangle_shape({200,75}, {0.4, 0.2, 0.0}, {150, 30});
+    Rectangle_shape *medLogC = new Rectangle_shape({460,75}, {0.4, 0.2, 0.0}, {150, 30});
+    Circle *lilypadA1 = new Circle({25,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadA2 = new Circle({55,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadA3 = new Circle({85,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadB1 = new Circle({185,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadB2 = new Circle({215,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadB3 = new Circle({245,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadC1 = new Circle({345,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadC2 = new Circle({375,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadC3 = new Circle({405,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadD1 = new Circle({505,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadD2 = new Circle({535,115}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadD3 = new Circle({565,115}, {0.0, 0.8, 0.0}, 15);
+    Rectangle_shape *longLogA = new Rectangle_shape({20,155}, {0.4, 0.2, 0.0}, {200, 30});
+    Rectangle_shape *longLogB = new Rectangle_shape({240,155}, {0.4, 0.2, 0.0}, {200, 30});
+    Rectangle_shape *longLogC = new Rectangle_shape({500,155}, {0.4, 0.2, 0.0}, {200, 30});
+    Rectangle_shape *shortLogA = new Rectangle_shape({0,195}, {0.4, 0.2, 0.0}, {100, 30});
+    Rectangle_shape *shortLogB = new Rectangle_shape({140,195}, {0.4, 0.2, 0.0}, {100, 30});
+    Rectangle_shape *shortLogC = new Rectangle_shape({320,195}, {0.4, 0.2, 0.0}, {100, 30});
+    Rectangle_shape *shortLogD = new Rectangle_shape({510,195}, {0.4, 0.2, 0.0}, {100, 30});
+    Circle *lilypadE1 = new Circle({15,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadE2 = new Circle({45,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadE3 = new Circle({75,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadF1 = new Circle({175,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadF2 = new Circle({205,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadF3 = new Circle({235,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadG1 = new Circle({335,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadG2 = new Circle({365,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadG3 = new Circle({395,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadH1 = new Circle({495,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadH2 = new Circle({525,235}, {0.0, 0.8, 0.0}, 15);
+    Circle *lilypadH3 = new Circle({555,235}, {0.0, 0.8, 0.0}, 15);
+
+    shapes.push_back(medLogA);
+    shapes.push_back(medLogB);
+    shapes.push_back(medLogC);
+    shapes.push_back(lilypadA1);
+    shapes.push_back(lilypadA2);
+    shapes.push_back(lilypadA3);
+    shapes.push_back(lilypadB1);
+    shapes.push_back(lilypadB2);
+    shapes.push_back(lilypadB3);
+    shapes.push_back(lilypadC1);
+    shapes.push_back(lilypadC2);
+    shapes.push_back(lilypadC3);
+    shapes.push_back(lilypadD1);
+    shapes.push_back(lilypadD2);
+    shapes.push_back(lilypadD3);
+    shapes.push_back(longLogA);
+    shapes.push_back(longLogB);
+    shapes.push_back(longLogC);
+    shapes.push_back(shortLogA);
+    shapes.push_back(shortLogB);
+    shapes.push_back(shortLogC);
+    shapes.push_back(shortLogD);
+    shapes.push_back(lilypadE1);
+    shapes.push_back(lilypadE2);
+    shapes.push_back(lilypadE3);
+    shapes.push_back(lilypadF1);
+    shapes.push_back(lilypadF2);
+    shapes.push_back(lilypadF3);
+    shapes.push_back(lilypadG1);
+    shapes.push_back(lilypadG2);
+    shapes.push_back(lilypadG3);
+    shapes.push_back(lilypadH1);
+    shapes.push_back(lilypadH2);
+    shapes.push_back(lilypadH3);
 }
 
 void clickToStart() {
@@ -74,31 +150,36 @@ void displayStart() {
     string welcome = "Frogger";
     displayString(welcome, 220, 150);
     startButton.draw();
+
 }
 
-void displayFacts() {
+void displayGame() {
     // DISPLAY SHAPES using polymorphism with draw function
-    vector<Shape*> shapes;
+
+    vector<Shape*> bars;
     Rectangle_shape *startRec = new Rectangle_shape({255,545}, {0.7, 0.0, 0.5}, {520, 50});
-    Rectangle_shape *logA = new Rectangle_shape({340,75}, {0.4, 0.2, 0.0}, {100, 30});
-    Circle *lilypadA = new Circle({25,115}, {0.0, 0.8, 0.0}, 15);
-    Rectangle_shape *logB = new Rectangle_shape({240,155}, {0.4, 0.2, 0.0}, {100, 30});
-    Rectangle_shape *logC = new Rectangle_shape({340,195}, {0.4, 0.2, 0.0}, {100, 30});
-    Circle *lilypadB = new Circle({450,235}, {0.0, 0.8, 0.0}, 15);
     Rectangle_shape *middleRec = new Rectangle_shape({255,285}, {0.7, 0.0, 0.5}, {520, 50});
     Rectangle_shape *endRec = new Rectangle_shape({255,25}, {0.7, 0.0, 0.5}, {520, 50});
 
-    shapes.push_back(startRec);
-    shapes.push_back(logA);
-    shapes.push_back(lilypadA);
-    shapes.push_back(logB);
-    shapes.push_back(logC);
-    shapes.push_back(lilypadB);
-    shapes.push_back(middleRec);
-    shapes.push_back(endRec);
-    for (int i=0; i < shapes.size(); i++) {
-        shapes[i]->draw();
+    bars.push_back(startRec);
+    bars.push_back(middleRec);
+    bars.push_back(endRec);
+
+    for (Shape*  b: bars) {
+        b->draw();
     }
+
+    for (Shape*  s: shapes) {
+        s->fly();
+
+
+        if(s->isOffScreen()){
+            s->flipSide();
+        }
+
+        s->draw();
+    }
+
 
     // DISPLAY ANIMAL IMAGE
     glEnable(GL_TEXTURE_2D);
@@ -143,7 +224,7 @@ void display() {
             displayStart();
             break;
         case game:
-            displayFacts();
+            displayGame();
             break;
         case final:
             displayFinal();
@@ -214,21 +295,13 @@ void mouse(int button, int state, int x, int y) {
     if (state == GLUT_UP &&
         button == GLUT_LEFT_BUTTON &&
         startButton.isOverlapping(x, y) && mode == start) {
-        startButton.click(clickToStart);
-    }
-
-    if (state == GLUT_DOWN &&
-        button == GLUT_LEFT_BUTTON &&
-        againButton.isOverlapping(x, y)) {
-        againButton.pressDown();
-    } else {
-        againButton.release();
+        startButton.click(startGame);
     }
 
     if (state == GLUT_UP &&
         button == GLUT_LEFT_BUTTON &&
         againButton.isOverlapping(x, y) && mode == final) {
-        startButton.click(clickToPlayAgain);
+        startButton.click(startGame);
     }
 
     glutPostRedisplay();

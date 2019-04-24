@@ -25,10 +25,13 @@ struct rect_dim {
     double width;
 };
 
+
+
 class Rectangle_shape : public Shape {
 protected:
     center_point center;
     rect_dim dimensions;
+
 public:
 
     // Constructors

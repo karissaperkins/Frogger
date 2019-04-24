@@ -11,8 +11,11 @@ Shape::Shape(){
     set_fill({0.0, 0.0, 0.0});
 }
 Shape::Shape(center_point new_center, color new_fill){
-    set_center(new_center);
+    center = new_center;
     set_fill(new_fill);
+    //velocity.x = rand() % 39 / 20;
+    velocity.x -= 1;
+    velocity.x *= 2;
 }
 
 // Getters
@@ -90,4 +93,24 @@ void Shape::set_fill_blue(double blue){
 void Shape::move(int delta_x, int delta_y) {
     set_center_x(get_center_x() + delta_x);
     set_center_y(get_center_y() + delta_y);
+}
+
+void Shape::fly() {
+    center.x += velocity.x;
+}
+
+void Shape::flipSide() {
+    if (center.x < 0) {
+        center.x = center.x + 750;
+    } else if (center.x > 600) {
+        center.x = center.x - 750;
+    }
+}
+
+bool Shape::isOffScreen() {
+    if (center.x > 650 || center.x < -150){
+        return true;
+    } else {
+        return false;
+    }
 }

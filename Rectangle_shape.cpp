@@ -76,6 +76,9 @@ void Rectangle_shape::draw() const {
     glTexCoord2d(1.0,1.0); glVertex2i(get_center_x() + ((int)get_length() / 2), get_center_y() - ((int)get_width() / 2));
     glEnd();
 }
+
+
+
 double Rectangle_shape::calculate_area() const{
     return get_length() * get_width();
 }

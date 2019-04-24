@@ -6,8 +6,8 @@
 #define SHAPES_SHAPES_H
 
 struct center_point {
-    int x;
-    int y;
+    double x;
+    double y;
 };
 
 struct color {
@@ -16,14 +16,12 @@ struct color {
     double blue;
 };
 
-
 class Shape {
-protected:
-    center_point center;
-    color fill;
-
 public:
 
+    color fill;
+    center_point center;
+    center_point velocity;
     // Constructors
 
     /*
@@ -77,6 +75,12 @@ public:
     * Effects: Moves the center of the shape by the given change values
     */
     void move(int delta_x, int delta_y);
+
+    void fly();
+
+    void flipSide();
+
+    bool isOffScreen();
 
     // Pure virtual methods
 
