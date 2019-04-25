@@ -26,7 +26,7 @@ screen mode;
 vector<Shape*> shapes;
 vector<GLuint> textures;
 vector<const char*> filenames = {"frog.jpg"};
-Rectangle_shape frog({300, 550}, {1.0, 1.0, 1.0}, {65, 40}, 0);
+Rectangle_shape frog({300, 550}, {1.0, 1.0, 1.0}, {50, 40}, 0);
 
 void loadImages() {
     // load each image from the filename vector into a textures vector
@@ -257,21 +257,35 @@ void kbdS(int key, int x, int y) {
         case GLUT_KEY_DOWN:
             if (mode == game){
                 frog.move(0,10);
+                if (frog.get_center_y() > (height - (frog.get_width()/2.0))) {
+                        frog.move(0, -10);
+                }
             }
             break;
         case GLUT_KEY_LEFT:
             if (mode == game){
                 frog.move(-10,0);
+                cout << frog.get_length()/2.0 << endl;
+                cout << frog.get_center_x() << endl;
+                if (frog.get_center_x() < (frog.get_length()/2.0)) {
+                    frog.move(10,0);
+                }
             }
             break;
         case GLUT_KEY_RIGHT:
             if (mode == game){
                 frog.move(10,0);
+                if (frog.get_center_x() > (width - (frog.get_length()/2.0))) {
+                    frog.move(-10,0);
+                }
             }
             break;
         case GLUT_KEY_UP:
             if (mode == game){
                 frog.move(0,-10);
+                if (frog.get_center_y() < (frog.get_width()/2.0)) {
+                    frog.move(0, 10);
+                }
             }
             break;
     }
@@ -292,7 +306,7 @@ void cursor(int x, int y) {
         againButton.release();
     }
 
-    glutPostRedisplay();
+//    glutPostRedisplay();
 }
 
 // button will be GLUT_LEFT_BUTTON or GLUT_RIGHT_BUTTON
