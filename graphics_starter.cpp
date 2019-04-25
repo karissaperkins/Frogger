@@ -327,16 +327,21 @@ void timer(int dummy) {
     glutPostRedisplay();
     glutTimerFunc(30, timer, dummy);
     for (Shape*  s: shapes) {
-        if (s->get_fill_green() == 0.2) {
+        if (s->get_center_y() == 75) {
             s->move(-2, 0);
-        } else if (s->get_fill_green() == 0.8) {
+        } else if (s->get_center_y() == 115) {
+            s->move(4, 0);
+        } else if (s->get_center_y() == 155) {
+            s->move(-5, 0);
+        } else if (s->get_center_y() == 195) {
+            s->move(-3, 0);
+        } else if (s->get_center_y() == 235) {
             s->move(2, 0);
         }
 
         if (s->isOffScreen()) {
             s->flipSide();
         }
-        s->draw();
     }
 }
 
@@ -377,7 +382,7 @@ int main(int argc, char** argv) {
     glutMouseFunc(mouse);
 
     // handles timer
-    glutTimerFunc(500, timer, 0);
+    glutTimerFunc(30, timer, 30);
 
     // Enter the event-processing loop
     glutMainLoop();
