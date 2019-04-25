@@ -21,7 +21,7 @@ public:
 
     color fill;
     center_point center;
-    center_point velocity;
+
     // Constructors
 
     /*
@@ -75,10 +75,6 @@ public:
     * Effects: Moves the center of the shape by the given change values
     */
     void move(int delta_x, int delta_y);
-
-    void moveLeft();
-
-    void moveRight();
 
     void flipSide();
 

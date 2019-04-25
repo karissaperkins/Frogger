@@ -13,11 +13,6 @@ Shape::Shape(){
 Shape::Shape(center_point new_center, color new_fill){
     center = new_center;
     set_fill(new_fill);
-    //velocity.x = rand() % 39 / 20;
-    // b/w 0.5 and 1.5
-    //velocity.x += 1;
-    //velocity.x += vel;
-    //velocity.x *= 2;
 }
 
 // Getters
@@ -95,14 +90,6 @@ void Shape::set_fill_blue(double blue){
 void Shape::move(int delta_x, int delta_y) {
     set_center_x(get_center_x() + delta_x);
     set_center_y(get_center_y() + delta_y);
-}
-
-void Shape::moveLeft() {
-    center.x -= velocity.x;
-}
-
-void Shape::moveRight() {
-    center.x += velocity.x;
 }
 
 void Shape::flipSide() {

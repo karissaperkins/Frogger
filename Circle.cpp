@@ -10,11 +10,9 @@
 Circle::Circle() : Shape() {
     set_radius(1.0);
 }
-Circle::Circle(center_point new_center, color new_fill, double new_radius, double vel) :
+Circle::Circle(center_point new_center, color new_fill, double new_radius) :
         Shape(new_center, new_fill) {
     set_radius(new_radius);
-    velocity.x += vel;
-    velocity.x *= 2;
 }
 
 // Getter
