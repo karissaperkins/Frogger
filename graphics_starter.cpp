@@ -26,7 +26,7 @@ screen mode;
 vector<Shape*> shapes;
 vector<GLuint> textures;
 vector<const char*> filenames = {"frog.jpg"};
-Rectangle_shape frog({300, 550}, {1.0, 1.0, 1.0}, {65, 40});
+Rectangle_shape frog({300, 550}, {1.0, 1.0, 1.0}, {65, 40}, 0);
 
 void loadImages() {
     // load each image from the filename vector into a textures vector
@@ -45,40 +45,40 @@ void startGame() {
     mode = game;
     shapes.clear();
 
-    Rectangle_shape *medLogA = new Rectangle_shape({0,75}, {0.4, 0.2, 0.0}, {150, 30});
-    Rectangle_shape *medLogB = new Rectangle_shape({200,75}, {0.4, 0.2, 0.0}, {150, 30});
-    Rectangle_shape *medLogC = new Rectangle_shape({460,75}, {0.4, 0.2, 0.0}, {150, 30});
-    Circle *lilypadA1 = new Circle({25,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadA2 = new Circle({55,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadA3 = new Circle({85,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadB1 = new Circle({185,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadB2 = new Circle({215,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadB3 = new Circle({245,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadC1 = new Circle({345,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadC2 = new Circle({375,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadC3 = new Circle({405,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadD1 = new Circle({505,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadD2 = new Circle({535,115}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadD3 = new Circle({565,115}, {0.0, 0.8, 0.0}, 15);
-    Rectangle_shape *longLogA = new Rectangle_shape({20,155}, {0.4, 0.2, 0.0}, {200, 30});
-    Rectangle_shape *longLogB = new Rectangle_shape({240,155}, {0.4, 0.2, 0.0}, {200, 30});
-    Rectangle_shape *longLogC = new Rectangle_shape({500,155}, {0.4, 0.2, 0.0}, {200, 30});
-    Rectangle_shape *shortLogA = new Rectangle_shape({0,195}, {0.4, 0.2, 0.0}, {100, 30});
-    Rectangle_shape *shortLogB = new Rectangle_shape({140,195}, {0.4, 0.2, 0.0}, {100, 30});
-    Rectangle_shape *shortLogC = new Rectangle_shape({320,195}, {0.4, 0.2, 0.0}, {100, 30});
-    Rectangle_shape *shortLogD = new Rectangle_shape({510,195}, {0.4, 0.2, 0.0}, {100, 30});
-    Circle *lilypadE1 = new Circle({15,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadE2 = new Circle({45,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadE3 = new Circle({75,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadF1 = new Circle({175,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadF2 = new Circle({205,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadF3 = new Circle({235,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadG1 = new Circle({335,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadG2 = new Circle({365,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadG3 = new Circle({395,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadH1 = new Circle({495,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadH2 = new Circle({525,235}, {0.0, 0.8, 0.0}, 15);
-    Circle *lilypadH3 = new Circle({555,235}, {0.0, 0.8, 0.0}, 15);
+    Rectangle_shape *medLogA = new Rectangle_shape({0,75}, {0.4, 0.2, 0.0}, {150, 30}, .75);
+    Rectangle_shape *medLogB = new Rectangle_shape({200,75}, {0.4, 0.2, 0.0}, {150, 30}, .75);
+    Rectangle_shape *medLogC = new Rectangle_shape({460,75}, {0.4, 0.2, 0.0}, {150, 30}, .75);
+    Circle *lilypadA1 = new Circle({25,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadA2 = new Circle({55,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadA3 = new Circle({85,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadB1 = new Circle({185,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadB2 = new Circle({215,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadB3 = new Circle({245,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadC1 = new Circle({345,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadC2 = new Circle({375,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadC3 = new Circle({405,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadD1 = new Circle({505,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadD2 = new Circle({535,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Circle *lilypadD3 = new Circle({565,115}, {0.0, 0.8, 0.0}, 15, 1.0);
+    Rectangle_shape *longLogA = new Rectangle_shape({20,155}, {0.4, 0.2, 0.0}, {200, 30}, 1.25);
+    Rectangle_shape *longLogB = new Rectangle_shape({240,155}, {0.4, 0.2, 0.0}, {200, 30}, 1.25);
+    Rectangle_shape *longLogC = new Rectangle_shape({500,155}, {0.4, 0.2, 0.0}, {200, 30}, 1.25);
+    Rectangle_shape *shortLogA = new Rectangle_shape({0,195}, {0.4, 0.2, 0.0}, {100, 30}, .5);
+    Rectangle_shape *shortLogB = new Rectangle_shape({140,195}, {0.4, 0.2, 0.0}, {100, 30}, 1.0);
+    Rectangle_shape *shortLogC = new Rectangle_shape({320,195}, {0.4, 0.2, 0.0}, {100, 30}, 1.0);
+    Rectangle_shape *shortLogD = new Rectangle_shape({510,195}, {0.4, 0.2, 0.0}, {100, 30}, 1.0);
+    Circle *lilypadE1 = new Circle({15,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadE2 = new Circle({45,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadE3 = new Circle({75,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadF1 = new Circle({175,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadF2 = new Circle({205,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadF3 = new Circle({235,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadG1 = new Circle({335,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadG2 = new Circle({365,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadG3 = new Circle({395,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadH1 = new Circle({495,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadH2 = new Circle({525,235}, {0.0, 0.8, 0.0}, 15, .75);
+    Circle *lilypadH3 = new Circle({555,235}, {0.0, 0.8, 0.0}, 15, .75);
 
     shapes.push_back(medLogA);
     shapes.push_back(medLogB);
@@ -116,9 +116,6 @@ void startGame() {
     shapes.push_back(lilypadH3);
 }
 
-void clickToStart() {
-    mode = game;
-}
 
 void clickToPlayAgain() {
     mode = game;
@@ -157,9 +154,9 @@ void displayGame() {
     // DISPLAY SHAPES using polymorphism with draw function
 
     vector<Shape*> bars;
-    Rectangle_shape *startRec = new Rectangle_shape({255,545}, {0.7, 0.0, 0.5}, {520, 50});
-    Rectangle_shape *middleRec = new Rectangle_shape({255,285}, {0.7, 0.0, 0.5}, {520, 50});
-    Rectangle_shape *endRec = new Rectangle_shape({255,25}, {0.7, 0.0, 0.5}, {520, 50});
+    Rectangle_shape *startRec = new Rectangle_shape({255,545}, {0.7, 0.0, 0.5}, {520, 50}, 0);
+    Rectangle_shape *middleRec = new Rectangle_shape({255,285}, {0.7, 0.0, 0.5}, {520, 50}, 0);
+    Rectangle_shape *endRec = new Rectangle_shape({255,25}, {0.7, 0.0, 0.5}, {520, 50}, 0);
 
     bars.push_back(startRec);
     bars.push_back(middleRec);
@@ -170,7 +167,12 @@ void displayGame() {
     }
 
     for (Shape*  s: shapes) {
-        s->fly();
+        if (s->get_fill_green() == 0.2) {
+            s->moveLeft();
+        }
+        else if (s->get_fill_green() == 0.8) {
+            s->moveRight();
+        }
 
 
         if(s->isOffScreen()){

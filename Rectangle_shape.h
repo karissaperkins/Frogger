@@ -48,7 +48,7 @@ public:
      * Modifies: Sets center, fill color, and length and width to values given
      * Effects: Creates a new rectangle object with given fill color, center location, and dimensions
      */
-    Rectangle_shape(center_point new_center, color new_fill, rect_dim new_dimensions);
+    Rectangle_shape(center_point new_center, color new_fill, rect_dim new_dimensions, double vel);
 
     // Getters
 

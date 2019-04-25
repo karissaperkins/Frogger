@@ -76,7 +76,9 @@ public:
     */
     void move(int delta_x, int delta_y);
 
-    void fly();
+    void moveLeft();
+
+    void moveRight();
 
     void flipSide();
 

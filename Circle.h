@@ -41,7 +41,7 @@ public:
      * Modifies: Sets center, fill color, and radius to values given
      * Effects: Creates a new circle object with given fill color, center location, and radius
      */
-    Circle(center_point new_center, color new_fill, double new_radius);
+    Circle(center_point new_center, color new_fill, double new_radius, double vel);
 
     // Getter
 

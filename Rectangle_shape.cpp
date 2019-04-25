@@ -9,9 +9,11 @@
 Rectangle_shape::Rectangle_shape() : Shape(){
     set_dimensions({1.0, 1.0});
 }
-Rectangle_shape::Rectangle_shape(center_point new_center, color new_fill, rect_dim new_dimensions) :
+Rectangle_shape::Rectangle_shape(center_point new_center, color new_fill, rect_dim new_dimensions, double vel) :
     Shape(new_center, new_fill) {
     set_dimensions(new_dimensions);
+    velocity.x += vel;
+    velocity.x *= 2;
 }
 
 // Getters
