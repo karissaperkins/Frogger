@@ -66,6 +66,7 @@ void Rectangle_shape::set_width(double width){
     }
 }
 
+
 // Override parent's pure virtual methods
 void Rectangle_shape::draw() const {
     glColor3f(fill.red, fill.green, fill.blue);

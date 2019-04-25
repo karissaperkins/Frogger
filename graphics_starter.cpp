@@ -25,8 +25,8 @@ enum screen {start, game, final};
 screen mode;
 vector<Shape*> shapes;
 vector<GLuint> textures;
-vector<const char*> filenames = {"elephant.jpg", "alligator.jpg", "giraffe.jpg", "hedgehog.jpg", "rhino.jpg",
-                                 "camel.jpg", "sloth.jpg", "orca.jpg", "ostricth.jpg", "frog.jpg"};
+vector<const char*> filenames = {"frog.jpg"};
+Rectangle_shape frog({300, 550}, {1.0, 1.0, 1.0}, {65, 40});
 
 void loadImages() {
     // load each image from the filename vector into a textures vector
@@ -186,7 +186,7 @@ void displayGame() {
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     // create quad for image
     //Rectangle_shape *animalImage = new Rectangle_shape({600,125}, {1.0,1.0,1.0}, {200, 150});
-    //animalImage->draw();
+    frog.draw();
     // bind texture to the quad and then disable it for future draws
     //glBindTexture( GL_TEXTURE_2D, textures[animalNum-1] );
     glDisable(GL_TEXTURE_2D);
@@ -253,12 +253,24 @@ void kbd(unsigned char key, int x, int y)
 void kbdS(int key, int x, int y) {
     switch(key) {
         case GLUT_KEY_DOWN:
+            if (mode == game){
+                frog.move(0,10);
+            }
             break;
         case GLUT_KEY_LEFT:
+            if (mode == game){
+                frog.move(-10,0);
+            }
             break;
         case GLUT_KEY_RIGHT:
+            if (mode == game){
+                frog.move(10,0);
+            }
             break;
         case GLUT_KEY_UP:
+            if (mode == game){
+                frog.move(0,-10);
+            }
             break;
     }
 
