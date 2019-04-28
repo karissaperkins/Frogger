@@ -28,6 +28,14 @@ vector<GLuint> textures;
 vector<const char*> filenames = {"frog.jpg"};
 Rectangle_shape frog({250, 555}, {1.0, 1.0, 1.0}, {40, 30});
 
+int xStart = 50;
+int xEnd = 490;
+int yOne = 75;
+int yTwo = 115;
+int yThree = 155;
+int yFour = 195;
+int yFive = 235;
+
 void loadImages() {
     // load each image from the filename vector into a textures vector
     GLuint texture;
@@ -169,6 +177,24 @@ void displayGame() {
         s->draw();
     }
 
+    if(frog.get_center_y() == yOne){
+        cout << "One";
+        frog.move(-2,0);
+    }else if(frog.get_center_y() == yTwo){
+        cout << "Two";
+        frog.move(4,0);
+    }else if(frog.get_center_y() == yThree){
+        cout << "Three";
+        frog.move(-5,0);
+    }else if(frog.get_center_y() == yFour){
+        cout << "Four";
+        frog.move(-3,0);
+    }else if(frog.get_center_y() == yFive){
+        cout << "Five";
+        frog.move(2,0);
+
+    }
+
 
     // DISPLAY ANIMAL IMAGE
     glEnable(GL_TEXTURE_2D);
@@ -248,7 +274,9 @@ void kbdS(int key, int x, int y) {
                 if (frog.get_center_y() > (height - (frog.get_width()/2.0))) {
                         frog.move(0, -40);
                 }
+
             }
+
             break;
         case GLUT_KEY_LEFT:
             if (mode == game){
@@ -275,6 +303,7 @@ void kbdS(int key, int x, int y) {
                 if (frog.get_center_y() < (frog.get_width()/2.0)) {
                     frog.move(0, 40);
                 }
+
             }
             break;
     }

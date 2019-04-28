@@ -96,6 +96,9 @@ public:
     */
     virtual double calculate_perimeter() const override;
 
+
+    bool isOverlapping(int x, int y);
+
 };
 
 

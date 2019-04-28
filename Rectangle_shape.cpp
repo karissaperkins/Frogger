@@ -86,3 +86,10 @@ double Rectangle_shape::calculate_area() const{
 double Rectangle_shape::calculate_perimeter() const{
     return 2 * (get_length() + get_width());
 }
+
+bool Rectangle_shape::isOverlapping(int x, int y) {
+    if (x == center.x && y == center.y){
+        return true;
+    }
+        return false; // Placeholder for compilation
+}
