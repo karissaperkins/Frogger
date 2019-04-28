@@ -24,6 +24,7 @@ Button againButton(rect, "Play Again");
 enum screen {start, game, final};
 screen mode;
 vector<Shape*> shapes;
+vector<Shape*> cars;
 vector<GLuint> textures;
 vector<const char*> filenames = {"frog.jpg"};
 Rectangle_shape frog({250, 555}, {1.0, 1.0, 1.0}, {40, 30});
@@ -52,6 +53,7 @@ void loadImages() {
 void startGame() {
     mode = game;
     shapes.clear();
+    cars.clear();
 
     Rectangle_shape *medLogA = new Rectangle_shape({0,75}, {0.4, 0.2, 0.0}, {150, 30});
     Rectangle_shape *medLogB = new Rectangle_shape({200,75}, {0.4, 0.2, 0.0}, {150, 30});
@@ -122,6 +124,51 @@ void startGame() {
     shapes.push_back(lilypadH1);
     shapes.push_back(lilypadH2);
     shapes.push_back(lilypadH3);
+
+    Rectangle_shape *truckA1 = new Rectangle_shape({0,315}, {1.0, 0.0, 0.0}, {75, 30});
+    Rectangle_shape *truckA2 = new Rectangle_shape({200,315}, {1.0, 0.0, 0.0}, {75, 30});
+    Rectangle_shape *truckA3 = new Rectangle_shape({460,315}, {1.0, 0.0, 0.0}, {75, 30});
+    Rectangle_shape *carA1 = new Rectangle_shape({25,355}, {0.5, 0.0, 1.0}, {40, 30});
+    Rectangle_shape *carA2 = new Rectangle_shape({185,355}, {0.5, 0.0, 1.0}, {40, 30});
+    Rectangle_shape *carA3 = new Rectangle_shape({345,355}, {0.5, 0.0, 1.0}, {40, 30});
+    Rectangle_shape *carA4 = new Rectangle_shape({505,355}, {0.5, 0.0, 1.0}, {40, 30});
+    Rectangle_shape *truckB1 = new Rectangle_shape({20,395}, {0.0, 1.0, 1.0}, {75, 30});
+    Rectangle_shape *truckB2 = new Rectangle_shape({240,395}, {0.0, 1.0, 1.0}, {75, 30});
+    Rectangle_shape *truckB3 = new Rectangle_shape({500,395}, {0.0, 1.0, 1.0}, {75, 30});
+    Rectangle_shape *carB1 = new Rectangle_shape({0,435}, {0.0, 0.0, 1.0}, {40, 30});
+    Rectangle_shape *carB2 = new Rectangle_shape({140,435}, {0.0, 0.0, 1.0}, {40, 30});
+    Rectangle_shape *carB3 = new Rectangle_shape({320,435}, {0.0, 0.0, 1.0}, {40, 30});
+    Rectangle_shape *carB4 = new Rectangle_shape({510,435}, {0.0, 0.0, 1.0}, {40, 30});
+    Rectangle_shape *carC1 = new Rectangle_shape({0,475}, {0.5, 0.5, 0.5}, {40, 30});
+    Rectangle_shape *carC2 = new Rectangle_shape({140,475}, {0.5, 0.5, 0.5}, {40, 30});
+    Rectangle_shape *carC3 = new Rectangle_shape({320,475}, {0.5, 0.5, 0.5}, {40, 30});
+    Rectangle_shape *carC4 = new Rectangle_shape({510,475}, {0.5, 0.5, 0.5}, {40, 30});
+    Rectangle_shape *truckC1 = new Rectangle_shape({20,515}, {1.0, 0.5, 0.0}, {75, 30});
+    Rectangle_shape *truckC2 = new Rectangle_shape({240,515}, {1.0, 0.5, 0.0}, {75, 30});
+    Rectangle_shape *truckC3 = new Rectangle_shape({500,515}, {1.0, 0.5, 0.0}, {75, 30});
+
+    cars.push_back(truckA1);
+    cars.push_back(truckA2);
+    cars.push_back(truckA3);
+    cars.push_back(carA1);
+    cars.push_back(carA2);
+    cars.push_back(carA3);
+    cars.push_back(carA4);
+    cars.push_back(truckB1);
+    cars.push_back(truckB2);
+    cars.push_back(truckB3);
+    cars.push_back(carB1);
+    cars.push_back(carB2);
+    cars.push_back(carB3);
+    cars.push_back(carB4);
+    cars.push_back(carC1);
+    cars.push_back(carC2);
+    cars.push_back(carC3);
+    cars.push_back(carC4);
+    cars.push_back(truckC1);
+    cars.push_back(truckC2);
+    cars.push_back(truckC3);
+
 }
 
 
@@ -162,8 +209,8 @@ void displayGame() {
     // DISPLAY SHAPES using polymorphism with draw function
 
     vector<Shape*> bars;
-    Rectangle_shape *startRec = new Rectangle_shape({255,545}, {0.7, 0.0, 0.5}, {520, 50});
-    Rectangle_shape *middleRec = new Rectangle_shape({255,285}, {0.7, 0.0, 0.5}, {520, 50});
+    Rectangle_shape *startRec = new Rectangle_shape({255,550}, {0.7, 0.0, 0.5}, {520, 40});
+    Rectangle_shape *middleRec = new Rectangle_shape({255,280}, {0.7, 0.0, 0.5}, {520, 40});
     Rectangle_shape *endRec = new Rectangle_shape({255,25}, {0.7, 0.0, 0.5}, {520, 50});
 
     bars.push_back(startRec);
@@ -175,6 +222,9 @@ void displayGame() {
     }
     for (Shape*  s: shapes) {
         s->draw();
+    }
+    for (Shape* c: cars) {
+        c->draw();
     }
 
     if(frog.get_center_y() == yOne){
@@ -372,6 +422,25 @@ void timer(int dummy) {
 
         if (s->isOffScreen()) {
             s->flipSide();
+        }
+    }
+    for (Shape*  c: cars) {
+        if (c->get_center_y() == 315) {
+            c->move(3, 0);
+        } else if (c->get_center_y() == 355) {
+            c->move(-3, 0);
+        } else if (c->get_center_y() == 395) {
+            c->move(-5, 0);
+        } else if (c->get_center_y() == 435) {
+            c->move(-2, 0);
+        } else if (c->get_center_y() == 475) {
+            c->move(2, 0);
+        } else if (c->get_center_y() == 515) {
+            c->move(-4, 0);
+        }
+
+        if (c->isOffScreen()) {
+            c->flipSide();
         }
     }
 }
