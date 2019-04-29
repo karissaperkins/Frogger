@@ -10,13 +10,13 @@ Shape::Shape(){
     set_center({0,0});
     set_fill({0.0, 0.0, 0.0});
 }
-Shape::Shape(center_point new_center, color new_fill){
+Shape::Shape(xy_point new_center, color new_fill){
     center = new_center;
     set_fill(new_fill);
 }
 
 // Getters
-center_point Shape::get_center() const{
+xy_point Shape::get_center() const{
     return center;
 }
 int Shape::get_center_x() const{
@@ -40,7 +40,7 @@ double Shape::get_fill_blue() const{
 
 
 // Setters
-void Shape::set_center(center_point new_center){
+void Shape::set_center(xy_point new_center){
     center = new_center;
 }
 void Shape::set_center_x(int x){

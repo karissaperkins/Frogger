@@ -1,11 +1,12 @@
 //
 // Created by Lisa Dion on 10/3/18.
 //
+# include <vector>
 
 #ifndef SHAPES_SHAPES_H
 #define SHAPES_SHAPES_H
 
-struct center_point {
+struct xy_point {
     double x;
     double y;
 };
@@ -20,7 +21,7 @@ class Shape {
 public:
 
     color fill;
-    center_point center;
+    xy_point center;
 
     // Constructors
 
@@ -36,7 +37,7 @@ public:
      * Modifies: Sets center and fill color to values given
      * Effects: Creates a new shape object with given fill color and center location
      */
-    Shape(center_point new_center, color new_fill);
+    Shape(xy_point new_center, color new_fill);
 
 
     // Getters
@@ -46,7 +47,7 @@ public:
      * Modifies: Nothing
      * Effects: Returns the field value (or part of the struct independently)
      */
-    center_point get_center() const;
+    xy_point get_center() const;
     int get_center_x() const;
     int get_center_y() const;
     color get_fill() const;
@@ -61,7 +62,7 @@ public:
     * Modifies: Field value (or part of the struct independently)
     * Effects: Sets the object center, color, or part of the struct independently
     */
-    void set_center(center_point new_center);
+    void set_center(xy_point new_center);
     void set_center_x(int x);
     void set_center_y(int y);
     void set_fill(color new_fill);
@@ -88,6 +89,8 @@ public:
      * Effects: Will be instantiated by child classes to draw the specific shape
      */
     virtual void draw() const = 0;
+
+    virtual std::vector<xy_point> get_bounds() const = 0;
 
     /*
     * Requires: Nothing

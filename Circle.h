@@ -41,7 +41,7 @@ public:
      * Modifies: Sets center, fill color, and radius to values given
      * Effects: Creates a new circle object with given fill color, center location, and radius
      */
-    Circle(center_point new_center, color new_fill, double new_radius);
+    Circle(xy_point new_center, color new_fill, double new_radius);
 
     // Getter
 
@@ -69,6 +69,8 @@ public:
     * Effects: Currently prints "Drawing a circle..." to the console. Will be used later to draw the circle
     */
     virtual void draw() const override;
+
+    virtual std::vector<xy_point> get_bounds() const override;
 
     /*
     * Requires: Nothing

@@ -6,16 +6,18 @@
 #include <iostream>
 #include <math.h>
 
+using namespace std;
+
 Rectangle_shape::Rectangle_shape() : Shape(){
     set_dimensions({1.0, 1.0});
 }
-Rectangle_shape::Rectangle_shape(center_point new_center, color new_fill, rect_dim new_dimensions) :
+Rectangle_shape::Rectangle_shape(xy_point new_center, color new_fill, rect_dim new_dimensions) :
     Shape(new_center, new_fill) {
     set_dimensions(new_dimensions);
 }
 
 // Getters
-center_point Rectangle_shape::get_center() const {
+xy_point Rectangle_shape::get_center() const {
     return center;
 }
 rect_dim Rectangle_shape::get_dimensions() const{
@@ -78,7 +80,18 @@ void Rectangle_shape::draw() const {
     glEnd();
 }
 
-
+vector<xy_point> Rectangle_shape::get_bounds() const{
+    vector<xy_point> bounds;
+    xy_point bottom_left;
+    xy_point top_right;
+    bottom_left.x = get_center_x() - (get_length()/2.0);
+    bottom_left.y = get_center_y() + (get_width()/2.0);
+    bounds.push_back(bottom_left);
+    top_right.x = get_center_x() + (get_length()/2.0);
+    top_right.y = get_center_y() - (get_width()/2.0);
+    bounds.push_back(top_right);
+    return bounds;
+}
 
 double Rectangle_shape::calculate_area() const{
     return get_length() * get_width();

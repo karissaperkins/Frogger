@@ -36,6 +36,12 @@ int yTwo = 115;
 int yThree = 155;
 int yFour = 195;
 int yFive = 235;
+int yCarsOne = 315;
+int yCarsTwo = 355;
+int yCarsThree = 395;
+int yCarsFour = 435;
+int yCarsFive = 475;
+int yCarsSix = 515;
 int yEnd = 35;
 
 void loadImages() {
@@ -55,7 +61,7 @@ void startGame() {
     mode = game;
     shapes.clear();
     cars.clear();
-    frog.set_center(center_point{250,555});
+    frog.set_center(xy_point{250,555});
 
     Rectangle_shape *medLogA = new Rectangle_shape({0,75}, {0.4, 0.2, 0.0}, {150, 30});
     Rectangle_shape *medLogB = new Rectangle_shape({200,75}, {0.4, 0.2, 0.0}, {150, 30});
@@ -207,6 +213,27 @@ void displayStart() {
 
 }
 
+bool isOverlappingBounds(int x, int y, string shapeList) {
+    if (shapeList == "cars") {
+        for (Shape *c: cars) {
+            vector<xy_point> bounds = c->get_bounds();  // bounds[0] is the bottom left point of the shape and
+            // bounds[1] is the top right
+            if (bounds[1].x >= x && bounds[0].x <= x && bounds[0].y >= y && bounds[1].y <= y) {
+                return true;
+            }
+        }
+    } else if (shapeList == "shapes"){  // can be used for logs/lily pads to see if the frog is on one of the logs or lily pads
+        for (Shape*  s: shapes) {
+            vector<xy_point> bounds = s->get_bounds();  // bounds[0] is the bottom left point of the shape and
+                                                        // bounds[1] is the top right
+            if (bounds[1].x >= x && bounds[0].x <= x && bounds[0].y >= y && bounds[1].y <= y) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 bool isOverlapping(int x, int y) {
     for (Shape*  s: shapes) {
         if (s->get_center_x() + 40 >= x && s->get_center_x() - 40 <= x && s->get_center_y() + 40 >= y && s->get_center_y() - 40 <= y) {
@@ -215,7 +242,6 @@ bool isOverlapping(int x, int y) {
     }
     return false;
 }
-
 
 
 void displayGame() {
@@ -240,13 +266,20 @@ void displayGame() {
         c->draw();
     }
 
+    // Cars collision
+    if(frog.get_center_y() == yCarsOne || frog.get_center_y() == yCarsTwo || frog.get_center_y() == yCarsThree || frog.get_center_y() == yCarsFour || frog.get_center_y() == yCarsFive || frog.get_center_y() == yCarsSix) {
+        if (isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "cars")) {
+            mode = final;
+        }
+    }
+
+    // Log/Lily pad riding
     if(frog.get_center_y() == yOne){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlapping(frog.get_center_x(), frog.get_center_y())) {
             frog.move(-2, 0);
         }else{
             mode = final;
         }
-
     }else if(frog.get_center_y() == yTwo){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlapping(frog.get_center_x(), frog.get_center_y())){
             frog.move(4, 0);

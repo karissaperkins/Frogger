@@ -29,7 +29,7 @@ struct rect_dim {
 
 class Rectangle_shape : public Shape {
 protected:
-    center_point center;
+    xy_point center;
     rect_dim dimensions;
 
 public:
@@ -48,7 +48,7 @@ public:
      * Modifies: Sets center, fill color, and length and width to values given
      * Effects: Creates a new rectangle object with given fill color, center location, and dimensions
      */
-    Rectangle_shape(center_point new_center, color new_fill, rect_dim new_dimensions);
+    Rectangle_shape(xy_point new_center, color new_fill, rect_dim new_dimensions);
 
     // Getters
 
@@ -57,7 +57,7 @@ public:
      * Modifies: Nothing
      * Effects: Returns the dimensions (or length or width independently)
      */
-    center_point get_center() const;
+    xy_point get_center() const;
     rect_dim get_dimensions() const;
     double get_length() const;
     double get_width() const;
@@ -81,6 +81,8 @@ public:
     * Effects: Currently prints "Drawing a rectangle..." to the console. Will be used later to draw the rectangle
     */
     virtual void draw() const override;
+
+    virtual std::vector<xy_point> get_bounds() const override;
 
     /*
     * Requires: Nothing

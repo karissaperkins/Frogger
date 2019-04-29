@@ -6,11 +6,12 @@
 #include <iostream>
 #include <math.h>
 
+using namespace std;
 
 Circle::Circle() : Shape() {
     set_radius(1.0);
 }
-Circle::Circle(center_point new_center, color new_fill, double new_radius) :
+Circle::Circle(xy_point new_center, color new_fill, double new_radius) :
         Shape(new_center, new_fill) {
     set_radius(new_radius);
 }
@@ -51,6 +52,19 @@ void Circle::draw() const {
     }
     glEnd();
 }
+vector<xy_point> Circle::get_bounds() const{
+    vector<xy_point> bounds;
+    xy_point bottom_left;
+    xy_point top_right;
+    bottom_left.x = get_center_x() - get_radius();
+    bottom_left.y = get_center_y() + get_radius();
+    bounds.push_back(bottom_left);
+    top_right.x = get_center_x() + get_radius();
+    top_right.y = get_center_y() - get_radius();
+    bounds.push_back(top_right);
+    return bounds;
+}
+
 double Circle::calculate_area() const {
     return M_PI * pow(get_radius(), 2);
 }
