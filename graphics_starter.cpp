@@ -6,6 +6,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <ctime>
+#include <chrono>
 
 #include <vector>
 #include "time.h"
@@ -13,6 +15,7 @@
 #include <fstream>
 #include <memory>
 using namespace std;
+using namespace std::chrono;
 
 
 // GLOBAL VARIABLES
@@ -21,7 +24,7 @@ int wd;
 Quad rect({0.7, 0.5, 1.0}, {260, 200}, 100, 40);
 Button startButton(rect, "Start Game");
 Button againButton(rect, "Play Again");
-enum screen {start, game, final};
+enum screen {start, game, final, finalWin};
 screen mode;
 vector<Shape*> shapes;
 vector<Shape*> cars;
@@ -259,6 +262,16 @@ void displayGame() {
     for (Shape*  b: bars) {
         b->draw();
     }
+
+    //time_t result = time(nullptr);
+    //auto startTime = std::chrono::high_resolution_clock::now();
+    //std::chrono::duration<double> sTime = double(startTime);
+
+    glColor3f(0.0, 0.0, 0.0);
+    //string gameTime = "Time: "+to_string(result);
+    string gameTime = "Time: ";//+ to_string(sTime.count());
+    displayString(gameTime, 15, 560);
+
     for (Shape*  s: shapes) {
         s->draw();
     }
@@ -305,7 +318,8 @@ void displayGame() {
             mode = final;
         }
     }else if(frog.get_center_y() == yEnd){
-        mode = final;
+        mode = finalWin;
+
     }
 
 
@@ -326,6 +340,20 @@ void displayFinal() {
     string gameEnd = "Game Over";
     displayString(gameEnd, 205, 150);
     againButton.draw();
+}
+
+void displayFinalWin() {
+    glColor3f(0.7, 0.0, 0.5);
+    string gameWin = "Congratulations! You Won!";
+    displayString(gameWin, 135, 150);
+    againButton.draw();
+    glColor3f(0.7, 0.0, 0.5);
+    //auto finishTime = high_resolution_clock::now();
+    //duration<seconds> totalTime = finishTime;
+    //seconds totalTime;
+    //totalTime = std::chrono::duration_cast<seconds>(finishTime);
+    string gameTime = "Time: ";//+to_string(totalTime);
+    displayString(gameTime, 135, 280);
 }
 
 /* Handler for window-repaint event. Call back when the window first appears and
@@ -354,6 +382,9 @@ void display() {
         case game:
             displayGame();
             break;
+        case finalWin:
+            displayFinalWin();
+            break;
         case final:
             displayFinal();
             break;
@@ -370,9 +401,14 @@ void kbd(unsigned char key, int x, int y)
         glutDestroyWindow(wd);
         exit(0);
     }
-    //'q'
+    //'q' Game Over
     if (key == 'q'){
         mode = final;
+    }
+
+    //'w' Game Win
+    if (key == 'w'){
+        mode = finalWin;
     }
 
     glutPostRedisplay();
@@ -460,6 +496,12 @@ void mouse(int button, int state, int x, int y) {
     if (state == GLUT_UP &&
         button == GLUT_LEFT_BUTTON &&
         againButton.isOverlapping(x, y) && mode == final) {
+        startButton.click(startGame);
+    }
+
+    if (state == GLUT_UP &&
+        button == GLUT_LEFT_BUTTON &&
+        againButton.isOverlapping(x, y) && mode == finalWin) {
         startButton.click(startGame);
     }
 
