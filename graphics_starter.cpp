@@ -32,6 +32,10 @@ vector<GLuint> textures;
 vector<const char*> filenames = {"frog.jpg"};
 Rectangle_shape frog({250, 555}, {1.0, 1.0, 1.0}, {40, 30});
 
+high_resolution_clock::time_point t1;
+high_resolution_clock::time_point t2;
+high_resolution_clock::time_point t3;
+
 int xStart = 50;
 int xEnd = 490;
 int yOne = 75;
@@ -46,6 +50,7 @@ int yCarsFour = 435;
 int yCarsFive = 475;
 int yCarsSix = 515;
 int yEnd = 35;
+
 
 void loadImages() {
     // load each image from the filename vector into a textures vector
@@ -62,6 +67,7 @@ void loadImages() {
 
 void startGame() {
     mode = game;
+    t1 = high_resolution_clock::now();
     shapes.clear();
     cars.clear();
     frog.set_center(xy_point{250,555});
@@ -263,13 +269,12 @@ void displayGame() {
         b->draw();
     }
 
-    //time_t result = time(nullptr);
-    //auto startTime = std::chrono::high_resolution_clock::now();
-    //std::chrono::duration<double> sTime = double(startTime);
+
+    t2 = high_resolution_clock::now();
+    duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
 
     glColor3f(0.0, 0.0, 0.0);
-    //string gameTime = "Time: "+to_string(result);
-    string gameTime = "Time: ";//+ to_string(sTime.count());
+    string gameTime = "Time: "+to_string(timeSpan.count());
     displayString(gameTime, 15, 560);
 
     for (Shape*  s: shapes) {
@@ -319,6 +324,7 @@ void displayGame() {
         }
     }else if(frog.get_center_y() == yEnd){
         mode = finalWin;
+        t2 = high_resolution_clock::now();
 
     }
 
@@ -348,11 +354,9 @@ void displayFinalWin() {
     displayString(gameWin, 135, 150);
     againButton.draw();
     glColor3f(0.7, 0.0, 0.5);
-    //auto finishTime = high_resolution_clock::now();
-    //duration<seconds> totalTime = finishTime;
-    //seconds totalTime;
-    //totalTime = std::chrono::duration_cast<seconds>(finishTime);
-    string gameTime = "Time: ";//+to_string(totalTime);
+
+    duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
+    string gameTime = "Time: "+to_string(timeSpan.count())+" seconds";
     displayString(gameTime, 135, 280);
 }
 
