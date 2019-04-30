@@ -243,15 +243,6 @@ bool isOverlappingBounds(int x, int y, string shapeList) {
     return false;
 }
 
-bool isOverlapping(int x, int y) {
-    for (Shape*  s: shapes) {
-        if (s->get_center_x() + 40 >= x && s->get_center_x() - 40 <= x && s->get_center_y() + 40 >= y && s->get_center_y() - 40 <= y) {
-            return true;
-        }
-    }
-    return false;
-}
-
 
 void displayGame() {
     // DISPLAY SHAPES using polymorphism with draw function
@@ -293,31 +284,31 @@ void displayGame() {
 
     // Log/Lily pad riding
     if(frog.get_center_y() == yOne){
-        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlapping(frog.get_center_x(), frog.get_center_y())) {
+        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")) {
             frog.move(-2, 0);
         }else{
             mode = final;
         }
     }else if(frog.get_center_y() == yTwo){
-        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlapping(frog.get_center_x(), frog.get_center_y())){
+        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
             frog.move(4, 0);
         }else{
             mode = final;
         }
     }else if(frog.get_center_y() == yThree){
-        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlapping(frog.get_center_x(), frog.get_center_y())){
+        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
             frog.move(-5, 0);
         }else{
             mode = final;
         }
     }else if(frog.get_center_y() == yFour){
-        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlapping(frog.get_center_x(), frog.get_center_y())){
+        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
             frog.move(-3, 0);
         }else{
             mode = final;
         }
     }else if(frog.get_center_y() == yFive){
-        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlapping(frog.get_center_x(), frog.get_center_y())){
+        if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
             frog.move(2, 0);
         }else{
             mode = final;
