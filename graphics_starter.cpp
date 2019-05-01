@@ -51,6 +51,14 @@ int yCarsFive = 475;
 int yCarsSix = 515;
 int yEnd = 35;
 
+struct leaderboard{
+    double score1;
+    double score2;
+    double score3;
+    double score4;
+    double score5;
+};
+
 
 void loadImages() {
     // load each image from the filename vector into a textures vector
@@ -367,8 +375,20 @@ void displayFinalWin() {
     glColor3f(0.7, 0.0, 0.5);
 
     duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
-    string gameTime = "Time: "+to_string(timeSpan.count())+" seconds";
+    string gameTime = "Your Time: "+to_string(timeSpan.count())+" seconds";
     displayString(gameTime, 135, 280);
+    string topTimes = "Top Times: ";
+    displayString(topTimes, 135, 330);
+    string topTime = "1. ";
+    string secondTime = "2. ";
+    string thirdTime = "3. ";
+    string fourthTime = "4. ";
+    string fifthTime = "5. ";
+    displayString(topTime, 135, 370);
+    displayString(secondTime, 135, 410);
+    displayString(thirdTime, 135, 450);
+    displayString(fourthTime, 135, 490);
+    displayString(fifthTime, 135, 530);
 }
 
 /* Handler for window-repaint event. Call back when the window first appears and
