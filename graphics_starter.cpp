@@ -29,7 +29,7 @@ screen mode;
 vector<Shape*> shapes;
 vector<Shape*> cars;
 vector<GLuint> textures;
-vector<const char*> filenames = {"frog.jpg"};
+vector<const char*> filenames = {"frog.jpg", "lightBlueCar.jpg"};
 Rectangle_shape frog({250, 555}, {1.0, 1.0, 1.0}, {40, 30});
 
 high_resolution_clock::time_point t1;
@@ -193,6 +193,20 @@ void clickToPlayAgain() {
     mode = game;
 }
 
+void drawLine(double lineWidth, xy_point start, xy_point end) {
+    glPushAttrib(GL_ENABLE_BIT);
+    glLineStipple(35, 0xAAAA);
+    glEnable(GL_LINE_STIPPLE);
+    glLineWidth(lineWidth);
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_LINES);
+    glVertex2f(start.x, start.y);
+    glVertex2f(end.x, end.y);
+    glEnd();
+    glPopAttrib();
+
+}
+
 void displayString(string message, int x, int y) {
     glRasterPos2i(x, y);
     for (char &letter : message) {
@@ -250,16 +264,23 @@ void displayGame() {
     vector<Shape*> bars;
     Rectangle_shape *startRec = new Rectangle_shape({255,550}, {0.7, 0.0, 0.5}, {520, 40});
     Rectangle_shape *middleRec = new Rectangle_shape({255,280}, {0.7, 0.0, 0.5}, {520, 40});
+    Rectangle_shape *water = new Rectangle_shape({255, 155}, {0.0, 0.2, 0.7}, {520, 210});
     Rectangle_shape *endRec = new Rectangle_shape({255,25}, {0.7, 0.0, 0.5}, {520, 50});
 
     bars.push_back(startRec);
     bars.push_back(middleRec);
+    bars.push_back(water);
     bars.push_back(endRec);
 
     for (Shape*  b: bars) {
         b->draw();
     }
 
+    drawLine(1.0, {0,335}, {520, 335});
+    drawLine(1.0, {0,375}, {520, 375});
+    drawLine(1.0, {0,415}, {520, 415});
+    drawLine(1.0, {0,455}, {520, 455});
+    drawLine(1.0, {0,495}, {520, 495});
 
     t2 = high_resolution_clock::now();
     duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
@@ -272,7 +293,10 @@ void displayGame() {
         s->draw();
     }
     for (Shape* c: cars) {
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture( GL_TEXTURE_2D, textures[1] );
         c->draw();
+        glDisable(GL_TEXTURE_2D);
     }
 
     // Cars collision
@@ -320,14 +344,10 @@ void displayGame() {
     }
 
 
-    // DISPLAY ANIMAL IMAGE
+    // DISPLAY FROG
     glEnable(GL_TEXTURE_2D);
-    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-    // create quad for image
-    //Rectangle_shape *animalImage = new Rectangle_shape({600,125}, {1.0,1.0,1.0}, {200, 150});
+    glBindTexture( GL_TEXTURE_2D, textures[0] );
     frog.draw();
-    // bind texture to the quad and then disable it for future draws
-    //glBindTexture( GL_TEXTURE_2D, textures[animalNum-1] );
     glDisable(GL_TEXTURE_2D);
 
 }
