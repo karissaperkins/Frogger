@@ -31,7 +31,11 @@ vector<Shape*> cars;
 vector<GLuint> textures;
 vector<const char*> filenames = {"frog.jpg", "lightBlueCar.jpg"};
 Rectangle_shape frog({250, 555}, {1.0, 1.0, 1.0}, {40, 30});
-
+Rectangle_shape frog1({51, 25}, {1.0, 1.0, 1.0}, {40, 30});
+Rectangle_shape frog2({152, 25}, {1.0, 1.0, 1.0}, {40, 30});
+Rectangle_shape frog3({253, 25}, {1.0, 1.0, 1.0}, {40, 30});
+Rectangle_shape frog4({354, 25}, {1.0, 1.0, 1.0}, {40, 30});
+Rectangle_shape frog5({455, 25}, {1.0, 1.0, 1.0}, {40, 30});
 high_resolution_clock::time_point t1;
 high_resolution_clock::time_point t2;
 high_resolution_clock::time_point t3;
@@ -53,6 +57,13 @@ int yEnd = 35;
 
 int numWins = 0;
 int lives = 3;
+
+bool frog1Win;
+bool frog2Win;
+bool frog3Win;
+bool frog4Win;
+bool frog5Win;
+
 
 struct leaderboard{
     double score1;
@@ -82,6 +93,13 @@ void startGame() {
     shapes.clear();
     cars.clear();
     frog.set_center(xy_point{250,555});
+    frog1Win = false;
+    frog2Win = false;
+    frog3Win = false;
+    frog4Win = false;
+    frog5Win = false;
+    lives = 3;
+    numWins = 0;
 
     Rectangle_shape *medLogA = new Rectangle_shape({0,75}, {0.4, 0.2, 0.0}, {150, 30});
     Rectangle_shape *medLogB = new Rectangle_shape({200,75}, {0.4, 0.2, 0.0}, {150, 30});
@@ -268,6 +286,31 @@ bool isOverlappingBounds(int x, int y, string shapeList) {
     return false;
 }
 
+void drawEndLine(int x){
+    glLineWidth(1.0);
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_LINES);
+    glVertex2f(x, 50);
+    glVertex2f(x, 0);
+    glEnd();
+}
+
+void drawFrog(int frogNum){
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture( GL_TEXTURE_2D, textures[0] );
+    if(frogNum == 1) {
+        frog1.draw();
+    }else if(frogNum == 2){
+        frog2.draw();
+    }else if(frogNum == 3) {
+        frog3.draw();
+    }else if(frogNum == 4){
+        frog4.draw();
+    }else if(frogNum == 5){
+        frog5.draw();
+    }
+    glDisable(GL_TEXTURE_2D);
+}
 
 void displayGame() {
     // DISPLAY SHAPES using polymorphism with draw function
@@ -300,13 +343,14 @@ void displayGame() {
     string gameTime = "Time: "+to_string(timeSpan.count());
     displayString(gameTime, 15, 560);
 
+    string livesLeft = "Lives: " + to_string(lives);
+    displayString(livesLeft, 400, 560);
+
     //draw ending
-    glLineWidth(1.0);
-    glColor3f(1.0, 1.0, 1.0);
-    glBegin(GL_LINES);
-    glVertex2f(180, 35);
-    glVertex2f(180, 10);
-    glEnd();
+    drawEndLine(102);
+    drawEndLine(204);
+    drawEndLine(306);
+    drawEndLine(408);
 
     for (Shape*  s: shapes) {
         s->draw();
@@ -374,26 +418,52 @@ void displayGame() {
         //mode = finalWin;
         t2 = high_resolution_clock::now();
 
-        if(frog.get_center_x() >= 32 && frog.get_center_x() <= 114){
+        if(frog.get_center_x() >= 0 && frog.get_center_x() <= 102){
             cout << "one";
+            frog1Win = true;
             frog.set_center({250,555});
             numWins++;
-        }else if(frog.get_center_x() > 114 && frog.get_center_x() <= 196){
+
+        }else if(frog.get_center_x() > 102 && frog.get_center_x() <= 204){
             cout << "two";
+            frog2Win = true;
             frog.set_center({250,555});
             numWins++;
-        }else if(frog.get_center_x() > 196 && frog.get_center_x() <= 278){
+        }else if(frog.get_center_x() > 204 && frog.get_center_x() <= 306){
             cout << "three";
+            frog3Win = true;
             frog.set_center({250,555});
             numWins++;
-        }else if(frog.get_center_x() > 278 && frog.get_center_x() <= 360){
+        }else if(frog.get_center_x() > 306 && frog.get_center_x() <= 408){
             cout << "four";
+            frog4Win = true;
             frog.set_center({250,555});
             numWins++;
-        }else if(frog.get_center_x() > 360 && frog.get_center_x() <=442){
+        }else if(frog.get_center_x() > 408 && frog.get_center_x() <= 510){
             cout << "five";
+            frog5Win = true;
             frog.set_center({250,555});
         }
+    }
+
+    if(frog1Win){
+        drawFrog(1);
+        if(frog.get_center_x() >= 0 && frog.get_center_x() <= 102 && frog.get_center_y() <= 35){
+            lives--;
+            frog.set_center({250,555});
+        }
+    }
+    if(frog2Win){
+        drawFrog(2);
+    }
+    if(frog3Win){
+        drawFrog(3);
+    }
+    if(frog4Win){
+        drawFrog(4);
+    }
+    if(frog5Win){
+        drawFrog(5);
     }
 
 
@@ -410,7 +480,6 @@ void displayFinal() {
     string gameEnd = "Game Over";
     displayString(gameEnd, 205, 150);
     againButton.draw();
-    lives = 3;
 }
 
 void displayFinalWin() {
@@ -435,7 +504,6 @@ void displayFinalWin() {
     displayString(thirdTime, 135, 450);
     displayString(fourthTime, 135, 490);
     displayString(fifthTime, 135, 530);
-    numWins = 0;
 }
 
 /* Handler for window-repaint event. Call back when the window first appears and
