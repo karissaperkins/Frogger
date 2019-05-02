@@ -51,6 +51,9 @@ int yCarsFive = 475;
 int yCarsSix = 515;
 int yEnd = 35;
 
+int numWins = 0;
+int lives = 3;
+
 struct leaderboard{
     double score1;
     double score2;
@@ -297,6 +300,14 @@ void displayGame() {
     string gameTime = "Time: "+to_string(timeSpan.count());
     displayString(gameTime, 15, 560);
 
+    //draw ending
+    glLineWidth(1.0);
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_LINES);
+    glVertex2f(180, 35);
+    glVertex2f(180, 10);
+    glEnd();
+
     for (Shape*  s: shapes) {
         s->draw();
     }
@@ -307,10 +318,19 @@ void displayGame() {
         glDisable(GL_TEXTURE_2D);
     }
 
+    //seeing how many lives and wins
+    if(lives == 0){
+        mode = final;
+    }
+    if(numWins == 2){
+        mode = finalWin;
+    }
+
     // Cars collision
     if(frog.get_center_y() == yCarsOne || frog.get_center_y() == yCarsTwo || frog.get_center_y() == yCarsThree || frog.get_center_y() == yCarsFour || frog.get_center_y() == yCarsFive || frog.get_center_y() == yCarsSix) {
         if (isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "cars")) {
-            mode = final;
+            frog.set_center({250,555});
+            lives--;
         }
     }
 
@@ -319,36 +339,61 @@ void displayGame() {
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")) {
             frog.move(-2, 0);
         }else{
-            mode = final;
+            frog.set_center({250,555});
+            lives--;
         }
     }else if(frog.get_center_y() == yTwo){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
             frog.move(4, 0);
         }else{
-            mode = final;
+            frog.set_center({250,555});
+            lives--;
         }
     }else if(frog.get_center_y() == yThree){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
             frog.move(-5, 0);
         }else{
-            mode = final;
+            frog.set_center({250,555});
+            lives--;
         }
     }else if(frog.get_center_y() == yFour){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
             frog.move(-3, 0);
         }else{
-            mode = final;
+            frog.set_center({250,555});
+            lives--;
         }
     }else if(frog.get_center_y() == yFive){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
             frog.move(2, 0);
         }else{
-            mode = final;
+            frog.set_center({250,555});
+            lives--;
         }
     }else if(frog.get_center_y() == yEnd){
-        mode = finalWin;
+        //mode = finalWin;
         t2 = high_resolution_clock::now();
 
+        if(frog.get_center_x() >= 32 && frog.get_center_x() <= 114){
+            cout << "one";
+            frog.set_center({250,555});
+            numWins++;
+        }else if(frog.get_center_x() > 114 && frog.get_center_x() <= 196){
+            cout << "two";
+            frog.set_center({250,555});
+            numWins++;
+        }else if(frog.get_center_x() > 196 && frog.get_center_x() <= 278){
+            cout << "three";
+            frog.set_center({250,555});
+            numWins++;
+        }else if(frog.get_center_x() > 278 && frog.get_center_x() <= 360){
+            cout << "four";
+            frog.set_center({250,555});
+            numWins++;
+        }else if(frog.get_center_x() > 360 && frog.get_center_x() <=442){
+            cout << "five";
+            frog.set_center({250,555});
+        }
     }
 
 
@@ -365,6 +410,7 @@ void displayFinal() {
     string gameEnd = "Game Over";
     displayString(gameEnd, 205, 150);
     againButton.draw();
+    lives = 3;
 }
 
 void displayFinalWin() {
@@ -389,6 +435,7 @@ void displayFinalWin() {
     displayString(thirdTime, 135, 450);
     displayString(fourthTime, 135, 490);
     displayString(fifthTime, 135, 530);
+    numWins = 0;
 }
 
 /* Handler for window-repaint event. Call back when the window first appears and
