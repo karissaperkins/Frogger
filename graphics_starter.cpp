@@ -24,9 +24,13 @@ using namespace std::chrono;
 GLdouble width, height;
 int wd;
 Quad rect({0.7, 0.5, 1.0}, {260, 200}, 100, 40);
+Quad rect2({0.7, 0.5, 1.0}, {260, 265}, 100, 40);
+Quad rect3({0.7, 0.5, 1.0}, {400, 300}, 100, 40);
 Button startButton(rect, "Start Game");
+Button leaderBoardButton(rect2, "Leader Board");
 Button againButton(rect, "Play Again");
-enum screen {start, game, final, finalWin};
+Button mainButton(rect3, "Main Menu");
+enum screen {start, leader, game, final, finalWin};
 screen mode;
 vector<Shape*> shapes;
 vector<Shape*> cars;
@@ -266,6 +270,7 @@ void displayStart() {
     string welcome = "Frogger";
     displayString(welcome, 220, 150);
     startButton.draw();
+    leaderBoardButton.draw();
 
 }
 
@@ -281,7 +286,7 @@ bool isOverlappingBounds(int x, int y, string shapeList) {
     } else if (shapeList == "shapes"){  // can be used for logs/lily pads to see if the frog is on one of the logs or lily pads
         for (Shape*  s: shapes) {
             vector<xy_point> bounds = s->get_bounds();  // bounds[0] is the bottom left point of the shape and
-                                                        // bounds[1] is the top right
+            // bounds[1] is the top right
             if (bounds[1].x >= x && bounds[0].x <= x && bounds[0].y >= y && bounds[1].y <= y) {
                 return true;
             }
@@ -506,7 +511,53 @@ void displayFinal() {
     string gameEnd = "Game Over";
     displayString(gameEnd, 205, 150);
     againButton.draw();
+    leaderBoardButton.draw();
+
 }
+
+void displayLeaderBoard() {
+    glColor3f(0.7, 0.0, 0.5);
+    mainButton.draw();
+    glColor3f(0.7, 0.0, 0.5);
+
+    for (int i = 0; i < 5; i++) {
+        ifstream f_in;
+        f_in.open("topScores.txt");
+        double line;
+        while (f_in >> line) {
+            if (line != score.score1 && line != score.score2 && line != score.score3 &&
+                line != score.score4 && line != score.score5) {
+                if (line < score.score1 || score.score1 == 0) {
+                    score.score1 = line;
+                } else if ((score.score1 < line && line < score.score2) || score.score2 == 0) {
+                    score.score2 = line;
+                } else if ((score.score2 < line && line < score.score3) || score.score3 == 0) {
+                    score.score3 = line;
+                } else if ((score.score3 < line && line < score.score4) || score.score4 == 0) {
+                    score.score4 = line;
+                } else if ((score.score4 < line && line < score.score5) || score.score5 == 0) {
+                    score.score5 = line;
+                }
+            }
+        }
+        f_in.close();
+    }
+
+
+    string topTimes = "Top Times: ";
+    displayString(topTimes, 175, 125);
+    string topTime = "1. "+to_string(score.score1);
+    string secondTime = "2. "+to_string(score.score2);
+    string thirdTime = "3. "+to_string(score.score3);
+    string fourthTime = "4. "+to_string(score.score4);
+    string fifthTime = "5. "+to_string(score.score5);
+    displayString(topTime, 175, 165);
+    displayString(secondTime, 175, 205);
+    displayString(thirdTime, 175, 245);
+    displayString(fourthTime, 175, 285);
+    displayString(fifthTime, 175, 325);
+}
+
 
 void displayFinalWin() {
     glColor3f(0.7, 0.0, 0.5);
@@ -532,7 +583,7 @@ void displayFinalWin() {
         double line;
         while (f_in >> line) {
             if (line != score.score1 && line != score.score2 && line != score.score3 &&
-                    line != score.score4 && line != score.score5) {
+                line != score.score4 && line != score.score5) {
                 if (line < score.score1 || score.score1 == 0) {
                     score.score1 = line;
                 } else if ((score.score1 < line && line < score.score2) || score.score2 == 0) {
@@ -587,6 +638,9 @@ void display() {
         case start:
             displayStart();
             break;
+        case leader:
+            displayLeaderBoard();
+            break;
         case game:
             displayGame();
             break;
@@ -629,7 +683,7 @@ void kbdS(int key, int x, int y) {
                 frog.move(0,40);
                 cout << frog.get_center_x() << " , " << frog.get_center_y() << endl;
                 if (frog.get_center_y() > (height - (frog.get_width()/2.0))) {
-                        frog.move(0, -40);
+                    frog.move(0, -40);
                 }
 
             }
@@ -675,11 +729,24 @@ void cursor(int x, int y) {
         startButton.release();
     }
 
+    if (leaderBoardButton.isOverlapping(x, y)) {
+        leaderBoardButton.hover();
+    } else {
+        leaderBoardButton.release();
+    }
+
     if (againButton.isOverlapping(x, y)) {
         againButton.hover();
     } else {
         againButton.release();
     }
+
+    if (mainButton.isOverlapping(x, y)) {
+        mainButton.hover();
+    } else {
+        mainButton.release();
+    }
+
 
 //    glutPostRedisplay();
 }
@@ -712,6 +779,37 @@ void mouse(int button, int state, int x, int y) {
         againButton.isOverlapping(x, y) && mode == finalWin) {
         startButton.click(startGame);
     }
+
+    if (state == GLUT_DOWN &&
+        button == GLUT_LEFT_BUTTON &&
+        leaderBoardButton.isOverlapping(x, y)) {
+        leaderBoardButton.pressDown();
+    } else {
+        leaderBoardButton.release();
+    }
+
+    if (state == GLUT_UP &&
+        button == GLUT_LEFT_BUTTON &&
+        leaderBoardButton.isOverlapping(x, y) && (mode == start || mode == final)) {
+        mode = leader;
+        leaderBoardButton.click(displayLeaderBoard);
+    }
+
+    if (state == GLUT_DOWN &&
+        button == GLUT_LEFT_BUTTON &&
+        mainButton.isOverlapping(x, y)) {
+        mainButton.pressDown();
+    } else {
+        mainButton.release();
+    }
+
+    if (state == GLUT_UP &&
+        button == GLUT_LEFT_BUTTON &&
+        mainButton.isOverlapping(x, y) && (mode == leader)) {
+        mode = start;
+        mainButton.click(displayStart);
+    }
+
 
     glutPostRedisplay();
 }
