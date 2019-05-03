@@ -370,7 +370,7 @@ void displayGame() {
     if(lives == 0){
         mode = final;
     }
-    if(numWins == 2){
+    if(numWins == 5){
         mode = finalWin;
     }
 
@@ -423,39 +423,61 @@ void displayGame() {
         t2 = high_resolution_clock::now();
 
         if(frog.get_center_x() >= 0 && frog.get_center_x() <= 102){
-            cout << "one";
-            frog1Win = true;
-            frog.set_center({250,555});
-            numWins++;
+            if(!frog1Win){
+                cout << "one";
+                frog1Win = true;
+                frog.set_center({250, 555});
+                numWins++;
+            }else if(frog1Win){
+                frog.set_center({250,555});
+                lives--;
+            }
 
         }else if(frog.get_center_x() > 102 && frog.get_center_x() <= 204){
-            cout << "two";
-            frog2Win = true;
-            frog.set_center({250,555});
-            numWins++;
+            if(!frog2Win) {
+                cout << "two";
+                frog2Win = true;
+                frog.set_center({250, 555});
+                numWins++;
+            }else if(frog2Win){
+                frog.set_center({250,555});
+                lives--;
+            }
         }else if(frog.get_center_x() > 204 && frog.get_center_x() <= 306){
-            cout << "three";
-            frog3Win = true;
-            frog.set_center({250,555});
-            numWins++;
+            if(!frog3Win) {
+                cout << "three";
+                frog3Win = true;
+                frog.set_center({250, 555});
+                numWins++;
+            }else if(frog3Win){
+                frog.set_center({250,555});
+                lives--;
+            }
         }else if(frog.get_center_x() > 306 && frog.get_center_x() <= 408){
-            cout << "four";
-            frog4Win = true;
-            frog.set_center({250,555});
-            numWins++;
+            if(!frog4Win) {
+                cout << "four";
+                frog4Win = true;
+                frog.set_center({250, 555});
+                numWins++;
+            }else if(frog4Win){
+                frog.set_center({250,555});
+                lives--;
+            }
         }else if(frog.get_center_x() > 408 && frog.get_center_x() <= 510){
-            cout << "five";
-            frog5Win = true;
-            frog.set_center({250,555});
+            if(!frog5Win) {
+                cout << "five";
+                frog5Win = true;
+                frog.set_center({250, 555});
+                numWins++;
+            }else if(frog5Win){
+                frog.set_center({250,555});
+                lives--;
+            }
         }
     }
 
     if(frog1Win){
         drawFrog(1);
-        if(frog.get_center_x() >= 0 && frog.get_center_x() <= 102 && frog.get_center_y() <= 35){
-            lives--;
-            frog.set_center({250,555});
-        }
     }
     if(frog2Win){
         drawFrog(2);
