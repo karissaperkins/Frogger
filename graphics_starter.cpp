@@ -30,7 +30,7 @@ Button startButton(rect, "Start Game");
 Button leaderBoardButton(rect2, "Leader Board");
 Button againButton(rect, "Play Again");
 Button mainButton(rect3, "Main Menu");
-enum screen {start, leader, game, final, finalWin};
+enum screen {start, leader, game, final, finalWin, finalWinCheat};
 screen mode;
 vector<Shape*> shapes;
 vector<Shape*> cars;
@@ -583,6 +583,57 @@ void displayFinalWin() {
         double line;
         while (f_in >> line) {
             if (line != score.score1 && line != score.score2 && line != score.score3 &&
+                    line != score.score4 && line != score.score5) {
+                if (line < score.score1 || score.score1 == 0) {
+                    score.score1 = line;
+                } else if ((score.score1 < line && line < score.score2) || score.score2 == 0) {
+                    score.score2 = line;
+                } else if ((score.score2 < line && line < score.score3) || score.score3 == 0) {
+                    score.score3 = line;
+                } else if ((score.score3 < line && line < score.score4) || score.score4 == 0) {
+                    score.score4 = line;
+                } else if ((score.score4 < line && line < score.score5) || score.score5 == 0) {
+                    score.score5 = line;
+                }
+            }
+        }
+        f_in.close();
+    }
+
+
+    string topTimes = "Top Times: ";
+    displayString(topTimes, 135, 330);
+    string topTime = "1. "+to_string(score.score1);
+    string secondTime = "2. "+to_string(score.score2);
+    string thirdTime = "3. "+to_string(score.score3);
+    string fourthTime = "4. "+to_string(score.score4);
+    string fifthTime = "5. "+to_string(score.score5);
+    displayString(topTime, 135, 370);
+    displayString(secondTime, 135, 410);
+    displayString(thirdTime, 135, 450);
+    displayString(fourthTime, 135, 490);
+    displayString(fifthTime, 135, 530);
+}
+
+void displayFinalWinCheat() {
+    glColor3f(0.7, 0.0, 0.5);
+    string gameWin = "Congratulations! You Won!";
+    displayString(gameWin, 135, 150);
+    againButton.draw();
+    glColor3f(0.7, 0.0, 0.5);
+
+    duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
+    string time = to_string(timeSpan.count());
+    double newTime = timeSpan.count();
+    string gameTime = "Your Time: "+time+" seconds";
+    displayString(gameTime, 135, 280);
+
+    for (int i = 0; i < 5; i++) {
+        ifstream f_in;
+        f_in.open("topScores.txt");
+        double line;
+        while (f_in >> line) {
+            if (line != score.score1 && line != score.score2 && line != score.score3 &&
                 line != score.score4 && line != score.score5) {
                 if (line < score.score1 || score.score1 == 0) {
                     score.score1 = line;
@@ -644,6 +695,9 @@ void display() {
         case game:
             displayGame();
             break;
+        case finalWinCheat:
+            displayFinalWinCheat();
+            break;
         case finalWin:
             displayFinalWin();
             break;
@@ -670,7 +724,7 @@ void kbd(unsigned char key, int x, int y)
 
     //'w' Game Win
     if (key == 'w'){
-        mode = finalWin;
+        mode = finalWinCheat;
     }
 
     glutPostRedisplay();
@@ -777,6 +831,12 @@ void mouse(int button, int state, int x, int y) {
     if (state == GLUT_UP &&
         button == GLUT_LEFT_BUTTON &&
         againButton.isOverlapping(x, y) && mode == finalWin) {
+        startButton.click(startGame);
+    }
+
+    if (state == GLUT_UP &&
+        button == GLUT_LEFT_BUTTON &&
+        againButton.isOverlapping(x, y) && mode == finalWinCheat) {
         startButton.click(startGame);
     }
 
