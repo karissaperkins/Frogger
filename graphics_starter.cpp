@@ -24,11 +24,12 @@ using namespace std::chrono;
 GLdouble width, height;
 int wd;
 Quad rect({0.7, 0.5, 1.0}, {260, 200}, 100, 40);
-Quad rect2({0.7, 0.5, 1.0}, {260, 265}, 100, 40);
+Quad rect2({0.7, 0.5, 1.0}, {260, 260}, 100, 40);
 Quad rect3({0.7, 0.5, 1.0}, {400, 300}, 100, 40);
+Quad rect4({0.7, 0.5, 1.0}, {260, 100}, 100, 40);
 Button startButton(rect, "Start Game");
 Button leaderBoardButton(rect2, "Leader Board");
-Button againButton(rect, "Play Again");
+Button againButton(rect4, "Play Again");
 Button mainButton(rect3, "Main Menu");
 enum screen {start, leader, game, final, finalWin, finalWinCheat};
 screen mode;
@@ -45,6 +46,16 @@ Rectangle_shape frog5({455, 25}, {1.0, 1.0, 1.0}, {40, 30});
 high_resolution_clock::time_point t1;
 high_resolution_clock::time_point t2;
 high_resolution_clock::time_point t3;
+double newTime1;
+double newTime2;
+double newTime3;
+double newTime4;
+double newTime5;
+string gameTime1;
+string gameTime2;
+string gameTime3;
+string gameTime4;
+string gameTime5;
 
 int xStart = 50;
 int xEnd = 490;
@@ -384,6 +395,8 @@ void displayGame() {
         if (isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "cars")) {
             frog.set_center({250,555});
             lives--;
+            t2 = high_resolution_clock::now();
+            t1 = high_resolution_clock::now();
         }
     }
 
@@ -394,6 +407,8 @@ void displayGame() {
         }else{
             frog.set_center({250,555});
             lives--;
+            t2 = high_resolution_clock::now();
+            t1 = high_resolution_clock::now();
         }
     }else if(frog.get_center_y() == yTwo){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
@@ -401,6 +416,8 @@ void displayGame() {
         }else{
             frog.set_center({250,555});
             lives--;
+            t2 = high_resolution_clock::now();
+            t1 = high_resolution_clock::now();
         }
     }else if(frog.get_center_y() == yThree){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
@@ -408,6 +425,8 @@ void displayGame() {
         }else{
             frog.set_center({250,555});
             lives--;
+            t2 = high_resolution_clock::now();
+            t1 = high_resolution_clock::now();
         }
     }else if(frog.get_center_y() == yFour){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
@@ -415,6 +434,8 @@ void displayGame() {
         }else{
             frog.set_center({250,555});
             lives--;
+            t2 = high_resolution_clock::now();
+            t1 = high_resolution_clock::now();
         }
     }else if(frog.get_center_y() == yFive){
         if(frog.get_center_x() >= xStart && frog.get_center_x() <= xEnd && isOverlappingBounds(frog.get_center_x(), frog.get_center_y(), "shapes")){
@@ -422,62 +443,95 @@ void displayGame() {
         }else{
             frog.set_center({250,555});
             lives--;
+            t2 = high_resolution_clock::now();
+            t1 = high_resolution_clock::now();
         }
     }else if(frog.get_center_y() == yEnd){
-        //mode = finalWin;
-        t2 = high_resolution_clock::now();
 
         if(frog.get_center_x() >= 0 && frog.get_center_x() <= 102){
+            t2 = high_resolution_clock::now();
             if(!frog1Win){
                 cout << "one";
                 frog1Win = true;
                 frog.set_center({250, 555});
                 numWins++;
+                duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
+                string time = to_string(timeSpan.count());
+                newTime1 = timeSpan.count();
+                gameTime1 = "Your Time to Square 1: "+time+" seconds";
             }else if(frog1Win){
                 frog.set_center({250,555});
                 lives--;
             }
+            t1 = high_resolution_clock::now();
 
         }else if(frog.get_center_x() > 102 && frog.get_center_x() <= 204){
+            t2 = high_resolution_clock::now();
             if(!frog2Win) {
                 cout << "two";
                 frog2Win = true;
                 frog.set_center({250, 555});
                 numWins++;
+                duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
+                string time = to_string(timeSpan.count());
+                newTime2 = timeSpan.count();
+                gameTime2 = "Your Time to Square 2: "+time+" seconds";
             }else if(frog2Win){
                 frog.set_center({250,555});
                 lives--;
             }
+            t1 = high_resolution_clock::now();
+
         }else if(frog.get_center_x() > 204 && frog.get_center_x() <= 306){
+            t2 = high_resolution_clock::now();
             if(!frog3Win) {
                 cout << "three";
                 frog3Win = true;
                 frog.set_center({250, 555});
                 numWins++;
+                duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
+                string time = to_string(timeSpan.count());
+                newTime3 = timeSpan.count();
+                gameTime3 = "Your Time to Square 3: "+time+" seconds";
             }else if(frog3Win){
                 frog.set_center({250,555});
                 lives--;
             }
+            t1 = high_resolution_clock::now();
+
         }else if(frog.get_center_x() > 306 && frog.get_center_x() <= 408){
+            t2 = high_resolution_clock::now();
             if(!frog4Win) {
                 cout << "four";
                 frog4Win = true;
                 frog.set_center({250, 555});
                 numWins++;
+                duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
+                string time = to_string(timeSpan.count());
+                newTime4 = timeSpan.count();
+                gameTime4 = "Your Time to Square 4: "+time+" seconds";
             }else if(frog4Win){
                 frog.set_center({250,555});
                 lives--;
             }
+            t1 = high_resolution_clock::now();
+
         }else if(frog.get_center_x() > 408 && frog.get_center_x() <= 510){
+            t2 = high_resolution_clock::now();
             if(!frog5Win) {
                 cout << "five";
                 frog5Win = true;
                 frog.set_center({250, 555});
                 numWins++;
+                duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
+                string time = to_string(timeSpan.count());
+                newTime5 = timeSpan.count();
+                gameTime5 = "Your Time to Square 5: "+time+" seconds";
             }else if(frog5Win){
                 frog.set_center({250,555});
                 lives--;
             }
+            t1 = high_resolution_clock::now();
         }
     }
 
@@ -509,7 +563,7 @@ void displayGame() {
 void displayFinal() {
     glColor3f(0.7, 0.0, 0.5);
     string gameEnd = "Game Over";
-    displayString(gameEnd, 205, 150);
+    displayString(gameEnd, 205, 190);
     againButton.draw();
     leaderBoardButton.draw();
 
@@ -562,19 +616,33 @@ void displayLeaderBoard() {
 void displayFinalWin() {
     glColor3f(0.7, 0.0, 0.5);
     string gameWin = "Congratulations! You Won!";
-    displayString(gameWin, 135, 150);
+    displayString(gameWin, 135, 50);
     againButton.draw();
     glColor3f(0.7, 0.0, 0.5);
 
-    duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
-    string time = to_string(timeSpan.count());
-    double newTime = timeSpan.count();
-    string gameTime = "Your Time: "+time+" seconds";
-    displayString(gameTime, 135, 280);
+    displayString(gameTime1, 75, 160);
+    displayString(gameTime2, 75, 190);
+    displayString(gameTime3, 75, 220);
+    displayString(gameTime4, 75, 250);
+    displayString(gameTime5, 75, 280);
 
     ofstream f_out;
     f_out.open("topScores.txt", ios::app);
-    f_out << newTime << endl;
+    if (newTime1 > 0) {
+        f_out << newTime1 << endl;
+    }
+    if (newTime2 > 0) {
+        f_out << newTime2 << endl;
+    }
+    if (newTime3 > 0) {
+        f_out << newTime3 << endl;
+    }
+    if (newTime4 > 0) {
+        f_out << newTime4 << endl;
+    }
+    if (newTime5 > 0) {
+        f_out << newTime5 << endl;
+    }
     f_out.close();
 
     for (int i = 0; i < 5; i++) {
@@ -618,7 +686,7 @@ void displayFinalWin() {
 void displayFinalWinCheat() {
     glColor3f(0.7, 0.0, 0.5);
     string gameWin = "Congratulations! You Won!";
-    displayString(gameWin, 135, 150);
+    displayString(gameWin, 135, 50);
     againButton.draw();
     glColor3f(0.7, 0.0, 0.5);
 
@@ -696,7 +764,8 @@ void display() {
             displayGame();
             break;
         case finalWinCheat:
-            displayFinalWinCheat();
+            //displayFinalWinCheat();
+            displayFinalWin();
             break;
         case finalWin:
             displayFinalWin();
