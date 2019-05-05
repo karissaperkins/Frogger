@@ -690,11 +690,11 @@ void displayFinalWinCheat() {
     againButton.draw();
     glColor3f(0.7, 0.0, 0.5);
 
-    duration<double> timeSpan = duration_cast<duration<double>>(t2-t1);
-    string time = to_string(timeSpan.count());
-    double newTime = timeSpan.count();
-    string gameTime = "Your Time: "+time+" seconds";
-    displayString(gameTime, 135, 280);
+    displayString(gameTime1, 75, 160);
+    displayString(gameTime2, 75, 190);
+    displayString(gameTime3, 75, 220);
+    displayString(gameTime4, 75, 250);
+    displayString(gameTime5, 75, 280);
 
     for (int i = 0; i < 5; i++) {
         ifstream f_in;
