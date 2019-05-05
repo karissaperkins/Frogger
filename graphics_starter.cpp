@@ -764,8 +764,7 @@ void display() {
             displayGame();
             break;
         case finalWinCheat:
-            //displayFinalWinCheat();
-            displayFinalWin();
+            displayFinalWinCheat();
             break;
         case finalWin:
             displayFinalWin();
