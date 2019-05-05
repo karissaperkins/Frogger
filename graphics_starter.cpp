@@ -598,8 +598,8 @@ void displayLeaderBoard() {
     }
 
 
-    string topTimes = "Top Times: ";
-    displayString(topTimes, 175, 125);
+    string topTimes = "Top Times for One Frog to Make it Across: ";
+    displayString(topTimes, 45, 125);
     string topTime = "1. "+to_string(score.score1);
     string secondTime = "2. "+to_string(score.score2);
     string thirdTime = "3. "+to_string(score.score3);
@@ -669,8 +669,8 @@ void displayFinalWin() {
     }
 
 
-    string topTimes = "Top Times: ";
-    displayString(topTimes, 135, 330);
+    string topTimes = "Top Times for One Frog to Make it Across: ";
+    displayString(topTimes, 45, 330);
     string topTime = "1. "+to_string(score.score1);
     string secondTime = "2. "+to_string(score.score2);
     string thirdTime = "3. "+to_string(score.score3);
@@ -720,8 +720,8 @@ void displayFinalWinCheat() {
     }
 
 
-    string topTimes = "Top Times: ";
-    displayString(topTimes, 135, 330);
+    string topTimes = "Top Times for One Frog to Make it Across: ";
+    displayString(topTimes, 45, 330);
     string topTime = "1. "+to_string(score.score1);
     string secondTime = "2. "+to_string(score.score2);
     string thirdTime = "3. "+to_string(score.score3);
