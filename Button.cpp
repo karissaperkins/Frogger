@@ -117,7 +117,7 @@ Button::Button(Quad box, string label) {
 void Button::draw() {
     box.draw();
     glColor3f(0, 0, 0);
-    glRasterPos2i(box.getCenterX()-(4*label.length()), box.getCenterY()+5);
+    glRasterPos2i(box.getCenterX()-(3.5*label.length()), box.getCenterY()+5);
     for (char &letter : label) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, letter);
     }
